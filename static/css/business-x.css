@@ -1,30 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+*{
+    margin: 0;
+}
 body {
-    min-height:100vh;
+    height:100vh;
     display:flex;
     justify-content: center;
     align-items: center;
-    font-family: "Poppins", sans-serif;
+    font-family: "Quicksand", sans-serif;
 }
 
 section {
-    height: 650px;
+    height: 100vh;
     width: 360px;
     border: 1px solid #ccc;
     padding-top: 0;
+    border-radius: 15px;
 }
 
 .head {
-    height: 60px;
+    height: 90px;
     width: 100%;
     background-color: #131316;
-    border-radius: 10px;
-    margin-bottom: 50px;
+    border-radius: 15px;
+    margin-bottom: 40px;
     margin-top: 0px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content:start;
     align-items: center;
 }
 .head2{
@@ -40,7 +43,7 @@ section {
 }
 .title {
     color: white;
-    font-size: 30px;
+    font-size: 35px;
     padding: 10px;
     margin-left: 100px;
 }
@@ -51,13 +54,15 @@ section {
 }
 .name {
     text-align: center;
-    color: #443d3d;
-    font-size: 30px;
+    color: #161516;
+    font-size: 40px;
+    margin-bottom: 10px;
+    font-weight: 650;
 
 }
 
 ul {
-    width: 88%;
+    width: 95%;
     margin: auto;
     padding: 10px;
     box-sizing: border-box;
@@ -65,16 +70,15 @@ ul {
 }
 
 ul li {
-    padding: 10px;
+    padding: 7px 10px 2px 50px;
     font-family: font1;
     background-color: #f1eeee;
-    margin: 23px;
-    border-radius: 8px;
+    margin: 16px;
+    border-radius: 15px;
     transition: .8s;
     font-size: 20px;
-    display: flex;
-    justify-content: space-evenly;
     cursor: pointer;
+    list-style: none;
 
 }
 
@@ -90,10 +94,12 @@ ul li:hover
     margin-top: 0px;
 }
 
-a {
+ul li a {
     text-decoration: none;
     color: black;
     font-family: "Poppins", sans-serif;
+    display: flex;
+    justify-content: space-between;
     
 }
 a:hover {
@@ -101,9 +107,10 @@ a:hover {
 }
 
 .logo {
-    max-width: 100%;
+    max-width: 50%;
     max-height: 100%;
     margin-left: 20px;
+    margin-bottom: 10px;
 }
 
 

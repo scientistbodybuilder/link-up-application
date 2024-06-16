@@ -6,7 +6,7 @@
   }
 
 body {
-    background-color: var(--gry);
+    background: linear-gradient(50deg,#b9b9b9 0% 30%, white 70% 100%);
     display: flex;
     justify-content: center;
     flex-direction: column;
