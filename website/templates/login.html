@@ -8,29 +8,34 @@
 </head>
 <body>
     <style>
-        input[type="text"] {
+        input[type="password"] {
             width: 90%;
             padding: 8px;
             border-radius: 4px;
         }
     </style>
-    <header>
+    <!--<header>
         <div class="header=logo">
             <img src="../static/assets/LinkUp-Logo2.png" alt="linkup-logo">
+
         </div>
-    </header>
+    </header>-->
     <section>
-        <h2>REGISTER</h2>
-        <form>
+        <h2>LOGIN</h2>
+        <form method="POST">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required placeholder="email">
 
             <label for="password">Password:</label>
-            <input type="text" id="password" name="password"  required placeholder="password">
+            <input type="password" id="password" name="password"  required placeholder="password">
             <br>
-            <input type="submit" value="Register">
+            <input type="submit" value="Log In">
         </form>
-        <a href="{{url_for('login_page')}}">Log in to an existing account</a>
+        <a href="{{url_for('auth.signup_page')}}">Create an account</a>
+        <div class="logo">
+            <img src="../static/assets/LinkUp-logo1.png" alt="linkup-logo">
+        </div>
     </section>
+    
 </body>
 </html>

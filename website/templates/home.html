@@ -14,18 +14,18 @@
                     <img src="../static/assets/LinkUp-logo1.png" alt="linkup-logo">
                 </div>
                 <ul class="links">
-                    <li><a href="home.html">HOME</a></li>
-                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="{{url_for('views.home_page')}}">HOME</a></li>
+                    <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
                 </ul>
-                <a href="#" class="action_btn">LOG OUT</a>
+                <a href="{{url_for('auth.login_page')}}" class="action_btn">LOG OUT</a>
                 <div class="toggle_btn">
                     <i class="fa-solid fa-bars"></i>
                 </div>
             </div>
 
             <div class="dropdown_menu">
-                <li><a href="{{url_for('home_page')}}">HOME</a></li>
-                <li><a href="{{url_for('contact_page')}}">CONTACT</a></li>
+                <li><a href="{{url_for('views.home_page')}}">HOME</a></li>
+                <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
                 <li><a href="#" class="action_btn">LOG OUT</a></li>
             </div>
         </header>
