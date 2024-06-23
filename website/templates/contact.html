@@ -6,20 +6,30 @@
     <title>LinkUp</title>
     <link  rel="stylesheet" href="../static/css/contact.css">
     <script defer scr="../static/javascript/contact.js"></script>
+    <script src="https://kit.fontawesome.com/d218daeade.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header class="header-main">
-        <div class="header-main-logo">
-            <img src="../static/assets/LinkUp-logo1.png" alt="linkup-logo">
-            <nav class="header-main-nav">
-                <ul>
-                    <li><a href="{{url_for('views.home_page')}}">HOME</a></li>
-                    <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
-                </ul>
-            </nav>
+    <header>
+        <div class="navbar">
+            <div class="header-main-logo">
+                <img src="../static/assets/LinkUp-logo1.png" alt="linkup-logo">
+            </div>
+            <ul class="links">
+                <li><a href="{{url_for('views.home_page')}}">HOME</a></li>
+                <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
+                <li><a href="{{url_for('order.order_page')}}">ORDER</a></li>
+            </ul>
+            <a href="{{url_for('auth.logout')}}" class="action_btn">LOG OUT</a>
+            <div class="toggle_btn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
         </div>
-        <div class="header-main-logout">
-            <button>LOG OUT</button>
+
+        <div class="dropdown_menu">
+            <li><a href="{{url_for('views.home_page')}}">HOME</a></li>
+            <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
+            <li><a href="{{url_for('order.order_page')}}">ORDER</a></li>
+            <li><a href="{{url_for('auth.logout')}}" class="action_btn">LOG OUT</a></li>
         </div>
     </header>
 

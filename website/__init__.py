@@ -1,4 +1,6 @@
 from flask import Flask
+from .model import init_db
+from flask_login import LoginManager
 import os
 
 def create_app():
@@ -9,10 +11,14 @@ def create_app():
     app.config['MYSQL_DB'] = os.getenv('MYSQL_DB')
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
+    mysql = init_db(app)
+
     from .views import views
     from .auth import auth
+    from .order import order
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(order, url_prefix='/')
 
     return app

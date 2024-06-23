@@ -15,6 +15,7 @@ body {
     background-attachment: fixed;
 }
 
+/* HEADER */
 header{
     width: 100%;
     height: 80px;
@@ -93,7 +94,7 @@ header{
 }
 
 .dropdown_menu.open {
-    height: 150px;
+    height: 180px;
 }
 
 .dropdown_menu li {
@@ -116,6 +117,16 @@ header{
 .dropdown_menu li a:hover{
     color: #131322;
 }
+
+.header-main-logout {
+    background-color: #131316;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
 
 /* SCALABLE DESIGN*/
 
@@ -141,6 +152,7 @@ header{
     }
 }
 
+/* END HEADER */
 
 h1 {
     font-family: "Poppins";
@@ -152,9 +164,8 @@ h1 {
 }   
 
 .container {
-    width: 500px;
+    width: 400px;
     height: 300px;
-    margin-top: 20px;
     border: 1px solid #ccc;
     padding: 20px;
     overflow-y: auto;
@@ -168,47 +179,7 @@ h1 {
 
 }
 
-.header-main-logout {
-    background-color: #131316;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
 
-button {
-    color: white;
-    background-color: #131316;
-    border: none;
-    font-size: 22px;
-    cursor: pointer;
-    margin-right: 60px;
-    transition: 0.5s;
-    padding: 5px;
-    border-radius: 10px;
-}
-
-button:hover {
-    background-color: white;
-    color: #131316;
-    padding: 7px;
-
-}
-
-
-.drop-down button{
-    background-color: rgb(67, 67, 72);
-    color: white;
-    padding: 20px;
-    width: 300px;
-    font-size: 25px;
-    border-radius: 10px;
-    cursor: pointer;
-    align-self: center;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    box-shadow: 2px 5px 5px rgba(0,0,0,0.5);
-}
 
 .drop-down p {
     display: block;
@@ -220,17 +191,79 @@ button:hover {
 .drop-down .stat {
     display: none;
     background-color: rgb(244, 244, 244);
-    width: fit-content;
+    width: 80%;
     box-shadow: 2px 4px 5px rgba(0,0,0,0.3);
     margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
     margin-left: 20px;
 }
 
-.drop-down:hover .stat{
+.drop-down .stat .reveal {
     display: block;
 }
-.drop-down:hover button {
+.drop-down button:hover {
     opacity: 0.8;
-    margin-bottom: 0;
 }
+
+.drop-down button{
+    background-color: rgb(67, 67, 72);
+    color: white;
+    padding: 20px;
+    min-width: 300px;
+    width: 80%;
+    font-size: 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    align-self: center;
+    margin-top: 18px;
+    margin-bottom: -0px;
+    margin-right: 32px;
+    box-shadow: 2px 5px 5px rgba(0,0,0,0.5);
+    border: none;
+    transition: 0.5s;
+}
+
+/* button {
+    color: white;
+    background-color: #131316;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    transition: 0.5s;
+    padding: 5px;
+    border-radius: 10px;
+} */
+
+
+.order-container {
+    width: 520px;
+    margin-top: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content:space-evenly;
+    margin-bottom: 15px;
+}
+.order {
+    text-align: center;
+    color: rgb(7, 7, 7);
+    font-size: 25px;
+    font-weight: 270;
+    
+}
+.order-container button {
+    width: 49%;
+    padding: 7px;
+    margin: 0;
+    background-color: #161617;
+    color: white;
+    border-radius: 15px;
+}
+
+.order-container button:hover {
+    opacity: 0.7;
+}
+
+
+
 

@@ -16,8 +16,9 @@
                 <ul class="links">
                     <li><a href="{{url_for('views.home_page')}}">HOME</a></li>
                     <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
+                    <li><a href="{{url_for('order.order_page')}}">ORDER</a></li>
                 </ul>
-                <a href="{{url_for('auth.login_page')}}" class="action_btn">LOG OUT</a>
+                <a href="{{url_for('auth.logout')}}" class="action_btn">LOG OUT</a>
                 <div class="toggle_btn">
                     <i class="fa-solid fa-bars"></i>
                 </div>
@@ -26,22 +27,30 @@
             <div class="dropdown_menu">
                 <li><a href="{{url_for('views.home_page')}}">HOME</a></li>
                 <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
-                <li><a href="#" class="action_btn">LOG OUT</a></li>
+                <li><a href="{{url_for('order.order_page')}}">ORDER</a></li>
+                <li><a href="{{url_for('auth.logout')}}" class="action_btn">LOG OUT</a></li>
             </div>
         </header>
         <h1>
             Our Connections
         </h1>
+        <!-- <h2 class="order">
+            Order By
+        </h2>
+        <div class="order-container">
+            <button class="order-btn" id="card_btn">Cards In Use</button>
+            <button class="order-btn" id="date_btn">Date</button>
+        </div> -->
         <div class="container">
-            <ul>
+            <ul class="orgs">
                 <div class="drop-down">
                     <button> 
                         Company A
 
                     </button>
                     <div class="stat">
-                        <p>Cards:</p>
-                        <p>Reviews+:</p>
+                        <p>Cards in use:</p>
+                        <p>Date joined:</p>
                     </div>
                 </div>
 
@@ -51,8 +60,8 @@
 
                     </button>
                     <div class="stat">
-                        <p>Cards:</p>
-                        <p>Reviews+:</p>
+                        <p>Cards in use:</p>
+                        <p>Date joined:</p>
                     </div>
                 </div>
                 <div class="drop-down">
@@ -61,8 +70,8 @@
 
                     </button>
                     <div class="stat">
-                        <p>Cards:</p>
-                        <p>Reviews+:</p>
+                        <p>Cards in use:</p>
+                        <p>Date joined:</p>
                     </div>
                 </div>
                 <div class="drop-down">
@@ -71,8 +80,8 @@
 
                     </button>
                     <div class="stat">
-                        <p>Cards:</p>
-                        <p>Reviews+:</p>
+                        <p>Cards in use:</p>
+                        <p>Date joined:</p>
                     </div>
                 </div>
                 <div class="drop-down">
@@ -81,8 +90,8 @@
 
                     </button>
                     <div class="stat">
-                        <p>Cards:</p>
-                        <p>Reviews+:</p>
+                        <p>Cards in use:</p>
+                        <p>Date joined:</p>
                     </div>
                 </div>
                 <div class="drop-down">
@@ -91,8 +100,8 @@
 
                     </button>
                     <div class="stat">
-                        <p>Cards:</p>
-                        <p>Reviews+:</p>
+                        <p>Cards in use:</p>
+                        <p>Date joined:</p>
                     </div>
                 </div>
                 <div class="drop-down">
@@ -101,8 +110,8 @@
 
                     </button>
                     <div class="stat">
-                        <p>Cards:</p>
-                        <p>Reviews+:</p>
+                        <p>Cards in use:</p>
+                        <p>Date joined:</p>
                     </div>
                 </div>
             </ul>
