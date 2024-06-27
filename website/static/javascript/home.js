@@ -30,29 +30,46 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 
+const orderByCardBtn = document.getElementById("card_btn")
+const orderByDateBtn = document.getElementById("date_btn")
 
-// const orgsList = document.querySelector(".orgs")
-// const orderByCardBtn = document.getElementById("card_btn")
-// const orderByDateBtn = document.getElementById("date_btn")
-// const orgs = []
+async function orderByCards(e) {
+    try {
+        if (!e.target.classList.contains("order_btn")) return;
+        const data ={m: "card"}
 
-// async function orderByCards(e) {
-//     try {
-//         if (!e.target.classList.contains("order_btn")) return;
-//         const letter = "card"
-//     } catch(e){
+        const response = await fetch("/fetch_order_change", 
+            {   method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+        const result = await response.json();
+        console.log(`Success: ${result}`)
+    } catch(e){
+        console.log(`Error" ${e}`)
+    }
+}
 
-//     }
-// }
+async function orderByDate(e) {
+    try {
+        if (!e.target.classList.contains("order_btn")) return;
+        const data ={m: "date"}
 
-// async function orderByDate(e) {
-//     try{
-//         if(!e.target.classList.contains("order_btn")) return;
-//         const letter = "date"
-//     } catch(e){
+        const response = await fetch("/fetch_order_change", 
+            {   method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+        const result = await response.json();
+        console.log(`Success: ${result}`)
+    } catch(e){
+        console.log(`Error" ${e}`)
+    }
+}
 
-//     }
-// }
-
-// orderByCardBtn.addEventListener("click", orderByCards)
-// orderByDateBtn.addEventListener("click", orderByDate)
+orderByCardBtn.addEventListener("click", orderByCards)
+orderByDateBtn.addEventListener("click", orderByDate)
