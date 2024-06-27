@@ -53,6 +53,23 @@ def createUser(User):
     except Exception as e:
             print(f"Error: {e}")
             return 0
+    
+def initializeCards(User):
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute("SELECT user_id FROM users WHERE email = %s", (User.email,))
+        user_id = cur.fetchone()
+
+        cur.execute("INSERT INTO cards (user_id, email) VALUES(%d,%s)",(user_id,User.email))
+        mysql.connection.commit
+        cur.close()
+        if cur.rowcount == 1:
+            return 1
+        else:
+            return 0
+    except Exception as e:
+        print(f"Error: {e}")
+        return 0
 
 def userExist(User):
     cur = mysql.connection.cursor()
@@ -98,9 +115,12 @@ def signup_page():
         session.pop("user", None)
         email = request.form['email']
         password = request.form['password']
+        confirm_password = request.form["confirm password"]
         
         if len(password)<7:
             flash('Password must be atleast 7 characters', category='error')
+        elif password != confirm_password:
+            flash('Passwords do not match', category='error')
         elif not contains_num(password):
             flash('Password must contain a number', category='error')
         elif not("@" in email):
@@ -110,7 +130,8 @@ def signup_page():
             x = uniqueEmail(user)
             if x:
                 y = createUser(user)
-                if y:
+                z = initializeCards(user)
+                if y and z:
                     flash("Account created!", category='success')                    
                     return redirect(url_for('auth.login_page'))
                 else:

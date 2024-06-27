@@ -34,86 +34,26 @@
         <h1>
             Our Connections
         </h1>
-        <!-- <h2 class="order">
+        <h2 class="order">
             Order By
         </h2>
         <div class="order-container">
             <button class="order-btn" id="card_btn">Cards In Use</button>
             <button class="order-btn" id="date_btn">Date</button>
-        </div> -->
+        </div>
         <div class="container">
             <ul class="orgs">
-                <div class="drop-down">
-                    <button> 
-                        Company A
-
-                    </button>
-                    <div class="stat">
-                        <p>Cards in use:</p>
-                        <p>Date joined:</p>
+                {% for card in orgs %}
+                    <div class="drop-down">
+                        <button> 
+                            {{ card.name }}
+                        </button>
+                        <div class="stat">
+                            <p>Cards in use: {{ card.card_num }} </p>
+                            <p>Date joined: {{ card.date }}</p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="drop-down">
-                    <button> 
-                        Company B
-
-                    </button>
-                    <div class="stat">
-                        <p>Cards in use:</p>
-                        <p>Date joined:</p>
-                    </div>
-                </div>
-                <div class="drop-down">
-                    <button> 
-                        Company C
-
-                    </button>
-                    <div class="stat">
-                        <p>Cards in use:</p>
-                        <p>Date joined:</p>
-                    </div>
-                </div>
-                <div class="drop-down">
-                    <button> 
-                        Company D
-
-                    </button>
-                    <div class="stat">
-                        <p>Cards in use:</p>
-                        <p>Date joined:</p>
-                    </div>
-                </div>
-                <div class="drop-down">
-                    <button> 
-                        Company E
-
-                    </button>
-                    <div class="stat">
-                        <p>Cards in use:</p>
-                        <p>Date joined:</p>
-                    </div>
-                </div>
-                <div class="drop-down">
-                    <button> 
-                        Company F
-
-                    </button>
-                    <div class="stat">
-                        <p>Cards in use:</p>
-                        <p>Date joined:</p>
-                    </div>
-                </div>
-                <div class="drop-down">
-                    <button> 
-                        Company G
-
-                    </button>
-                    <div class="stat">
-                        <p>Cards in use:</p>
-                        <p>Date joined:</p>
-                    </div>
-                </div>
+                {% endfor %}
             </ul>
         </div>
         <script defer src="../static/javascript/home.js"></script>
