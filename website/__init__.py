@@ -1,6 +1,5 @@
 from flask import Flask
 from .model import init_db
-from flask_login import LoginManager
 import os
 
 def create_app():
@@ -16,9 +15,11 @@ def create_app():
     from .views import views
     from .auth import auth
     from .order import order
+    from .linktree import linktree
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(order, url_prefix='/')
+    app.register_blueprint(linktree, url_prefix='/')
 
     return app

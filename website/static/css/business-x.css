@@ -17,10 +17,12 @@ section {
     border: 1px solid #ccc;
     padding-top: 0;
     border-radius: 15px;
+    background: linear-gradient(50deg,#eaeaea 0% 30%, white 70% 100%);
+
 }
 
 .head {
-    height: 90px;
+    height: 70px;
     width: 100%;
     background-color: #131316;
     border-radius: 15px;
@@ -72,13 +74,15 @@ ul {
 ul li {
     padding: 7px 10px 2px 50px;
     font-family: font1;
-    background-color: #f1eeee;
+    background-color: #ffffff;
     margin: 16px;
     border-radius: 15px;
     transition: .8s;
     font-size: 20px;
     cursor: pointer;
     list-style: none;
+    border: solid 1px white;
+    box-shadow: 2px 4px 5px rgba(0,0,0,0.3);;
 
 }
 
@@ -107,7 +111,7 @@ a:hover {
 }
 
 .logo {
-    max-width: 50%;
+    max-width: 40%;
     max-height: 100%;
     margin-left: 20px;
     margin-bottom: 10px;
