@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link  rel="stylesheet" href="../static/css/order.css">
-    <script src="https://kit.fontawesome.com/d218daeade.js" crossorigin="anonymous"></script>
+    <script defer src="https://kit.fontawesome.com/d218daeade.js" crossorigin="anonymous"></script>
+    <script src="../static/javascript/order.js"></script>
     <title>LinkUp</title>
 </head>
 <body>
@@ -18,7 +19,7 @@
                 <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
                 <li><a href="{{url_for('order.order_page')}}">ORDER</a></li>
             </ul>
-            <a href="{{url_for('auth.logout')}}" class="action_btn">LOG OUT</a>
+            <a href="{{url_for('order.signout')}}" class="action_btn">LOG OUT</a>
             <div class="toggle_btn">
                 <i class="fa-solid fa-bars"></i>
             </div>
@@ -28,7 +29,7 @@
             <li><a href="{{url_for('views.home_page')}}">HOME</a></li>
             <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
             <li><a href="{{url_for('order.order_page')}}">ORDER</a></li>
-            <li><a href="{{url_for('auth.logout')}}" class="action_btn">LOG OUT</a></li>
+            <li><a href="{{url_for('order.signout')}}" class="action_btn">LOG OUT</a></li>
         </div>
     </header>
     
