@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link  rel="stylesheet" href="../static/css/home.css">
+        <script defer src="../static/javascript/home.js"></script>
         <script src="https://kit.fontawesome.com/d218daeade.js" crossorigin="anonymous"></script>
         <title>LinkUp</title>
     </head>
@@ -18,7 +19,11 @@
                     <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
                     <li><a href="{{url_for('order.order_page')}}">ORDER</a></li>
                 </ul>
-                <a href="{{url_for('auth.logout')}}" class="action_btn">LOG OUT</a>
+                {% if prompt2 == "LOG OUT" %}
+                    <a href="#" onclick="signout()" class="action_btn"> {{ prompt2 }} </a>
+                {% else %}
+                    <a href="{{url_for('auth.logout')}}" class="action_btn"> {{ prompt2 }} </a>
+                {% endif %}
                 <div class="toggle_btn">
                     <i class="fa-solid fa-bars"></i>
                 </div>
@@ -28,7 +33,13 @@
                 <li><a href="{{url_for('views.home_page')}}">HOME</a></li>
                 <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
                 <li><a href="{{url_for('order.order_page')}}">ORDER</a></li>
-                <li><a href="{{url_for('auth.logout')}}" class="action_btn">LOG OUT</a></li>
+                <li>
+                    {% if prompt2 == "LOG OUT" %}
+                        <a href="#" onclick="signout()" class="action_btn"> {{ prompt2 }} </a>
+                    {% else %}
+                        <a href="{{url_for('auth.logout')}}" class="action_btn"> {{ prompt2 }} </a>
+                    {% endif %}
+                </li>
             </div>
         </header>
         <h1>
@@ -43,19 +54,8 @@
         </div>
         <div class="container">
             <ul class="orgs">
-                {% for card in orgs %}
-                    <div class="drop-down">
-                        <button> 
-                            {{ card.name }}
-                        </button>
-                        <div class="stat">
-                            <p>Cards in use: {{ card.card_num }} </p>
-                            <p>Date joined: {{ card.date }}</p>
-                        </div>
-                    </div>
-                {% endfor %}
             </ul>
         </div>
-        <script defer src="../static/javascript/home.js"></script>
+        <p id="signin prompt"> {{ prompt }} </p>
     </body>
 </html>

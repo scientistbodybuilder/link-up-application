@@ -24,6 +24,7 @@ def login_required(f):
         return f(*args, **kwargs)
     return wrapper
 
+
 def uniqueEmail(User):
     cur = mysql.connection.cursor()
     try:
@@ -60,8 +61,8 @@ def initializeCards(User):
         cur.execute("SELECT user_id FROM users WHERE email = %s", (User.email,))
         user_id = cur.fetchone()
 
-        cur.execute("INSERT INTO cards (user_id, email) VALUES(%d,%s)",(user_id,User.email))
-        mysql.connection.commit
+        cur.execute("INSERT INTO cards (user_id, email) VALUES(%s,%s)",(user_id,User.email))
+        mysql.connection.commit()
         cur.close()
         if cur.rowcount == 1:
             return 1
@@ -88,7 +89,7 @@ def userExist(User):
         print(f"Error: {e}")
         return 3
 
-@auth.route("/",methods=['GET','POST'])
+@auth.route("/login",methods=['GET','POST'])
 def login_page():
     if request.method=="POST":
         session.pop("user", None)
@@ -97,7 +98,6 @@ def login_page():
         user = User(email, password)
         x = userExist(user)
         if x==1:
-            flash("Authetication Succesful", category='success')
             session["user"] = user.email
             return redirect(url_for('views.home_page'))
         elif x==2:

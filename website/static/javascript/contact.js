@@ -1,19 +1,4 @@
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        console.log(entry)
-        if (entry.isIntersecting) {
-            entry.target.classList.add('show');
-        } else {
-            entry.target.classList.remove('show');
-        }
-    });
-});
-
-const hiddenElements = document.querySelectorAll('.hidden');
-hiddenElements.forEach((el) => observer.observe(el));
-
 document.addEventListener('DOMContentLoaded', () => {
-    const tags = document.querySelectorAll('.drop-down .button')
     const toggleBtn = document.querySelector('.toggle_btn')
     const toggleBtnIcon = document.querySelector('.toggle_btn i')
     const dropDownMenu = document.querySelector('.dropdown_menu')
@@ -23,3 +8,26 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('icon clicked')
     })
 })
+
+async function signout(){
+    try {
+        const data = {m: "contact"}
+        const response = await fetch("/view_signout",
+            {method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+        )
+        result = await response.json();
+        if (result.status === 'success') {
+            window.location.href = result.redirect; // Perform the redirect
+        } else {
+            console.error(`Error: ${result.message}`);
+        }
+
+    } catch(e){
+        console.log(`Error: ${e}`);
+    }
+}

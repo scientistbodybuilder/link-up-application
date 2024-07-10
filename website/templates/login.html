@@ -33,6 +33,21 @@
             <input type="submit" value="Log In">
         </form>
         <a href="{{url_for('auth.signup_page')}}">{{prompt}}</a>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div class="alert-danger">
+                    {{ message }}
+                </div>
+            {% else %}
+                <div class="alert-success">
+                    {{ message }}
+                </div>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
         <div class="logo">
             <img src="../static/assets/LinkUp-logo1.png" alt="linkup-logo">
         </div>

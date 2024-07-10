@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkUp</title>
     <link  rel="stylesheet" href="../static/css/contact.css">
-    <script defer scr="../static/javascript/contact.js"></script>
+    <script defer src="../static/javascript/contact.js"></script>
     <script src="https://kit.fontawesome.com/d218daeade.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -19,7 +19,11 @@
                 <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
                 <li><a href="{{url_for('order.order_page')}}">ORDER</a></li>
             </ul>
-            <a href="{{url_for('auth.logout')}}" class="action_btn">LOG OUT</a>
+            {% if prompt2 == "LOG OUT" %}
+                <a href="#" onclick="signout()" class="action_btn"> {{ prompt2 }} </a>
+            {% else %}
+                <a href="{{url_for('auth.logout')}}" class="action_btn"> {{ prompt2 }} </a>
+            {% endif %}
             <div class="toggle_btn">
                 <i class="fa-solid fa-bars"></i>
             </div>
@@ -29,7 +33,13 @@
             <li><a href="{{url_for('views.home_page')}}">HOME</a></li>
             <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
             <li><a href="{{url_for('order.order_page')}}">ORDER</a></li>
-            <li><a href="{{url_for('auth.logout')}}" class="action_btn">LOG OUT</a></li>
+            <li>
+                {% if prompt2 == "LOG OUT" %}
+                    <a href="#" onclick="signout()" class="action_btn"> {{ prompt2 }} </a>
+                {% else %}
+                    <a href="{{url_for('auth.logout')}}" class="action_btn"> {{ prompt2 }} </a>
+                {% endif %}
+            </li>
         </div>
     </header>
 
@@ -37,36 +47,7 @@
         <h1> Contact Us</h1>
         <p> Phone Number: 123-456-7890</p>
         <p> Email: linkup@gmail.com</p>
-    </section>
-
-    <section class="hidden" id="sec2">
-        <h1>Make an Order</h1>
-        <form action="#" method="#">
-
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" required>
-
-            <label for="quantity">Quantity:</label>
-            <input type="number" min="0" required id="quantity" name="quantity" placeholder="0">
-
-            <label for="type">I want to connect to:</label>
-            <select id="type" name="connect-type">
-                <option value="one-page">One page</option>
-                <option value="link-tree">Link tree</option>
-            </select>
-
-            <label for="comments">Additional Information </label>
-            <textarea id="comments" rows="3" cols="25" name="comments">
-
-            </textarea>
-
-            <input type="submit">
-        </form>
-    </section>
-    
+    </section> 
+    <p id="signin prompt"> {{ prompt }} </p>
 </body>
 </html>
