@@ -51,14 +51,14 @@ def home_page():
     list = orderOrg(m)
     print(list)
     if "user" not in session:
-        return render_template('home.html', prompt="Sign in to make an order", prompt2 = "SIGN IN")
-    return render_template('home.html', prompt2 = "LOG OUT")
+        return render_template('home.html', prompt="Sign in to make an order", prompt2 = "Sign in")
+    return render_template('home.html', prompt2 = "Sign out")
 
 @views.route("/contact")
 def contact_page():
     if "user" not in session:
-        return render_template('contact.html', prompt="Sign in to make an order", prompt2 = "SIGN IN")
-    return render_template('contact.html', prompt2 = "LOG OUT")
+        return render_template('contact.html', prompt="Sign in to make an order", prompt2 = "Sign in")
+    return render_template('contact.html', prompt2 = "Sign out")
 
 @views.route("/fetch_order_change", methods=["POST"])
 # @login_required

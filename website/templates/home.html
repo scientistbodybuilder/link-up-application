@@ -12,14 +12,14 @@
         <header>
             <div class="navbar">
                 <div class="header-main-logo">
-                    <img src="../static/assets/LinkUp-logo1.png" alt="linkup-logo">
+                    <a href="{{url_for('views.home_page')}}"><img src="../static/assets/LinkUp-Logo-Trans.png" alt="linkup-logo"></a>
                 </div>
                 <ul class="links">
-                    <li><a href="{{url_for('views.home_page')}}">HOME</a></li>
-                    <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
-                    <li><a href="{{url_for('order.order_page')}}">ORDER</a></li>
+                    <li><a href="{{url_for('views.home_page')}}">Home</a></li>
+                    <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
+                    <li><a href="{{url_for('order.order_page')}}">Order</a></li>
                 </ul>
-                {% if prompt2 == "LOG OUT" %}
+                {% if prompt2 == "Sign out" %}
                     <a href="#" onclick="signout()" class="action_btn"> {{ prompt2 }} </a>
                 {% else %}
                     <a href="{{url_for('auth.logout')}}" class="action_btn"> {{ prompt2 }} </a>
@@ -30,11 +30,11 @@
             </div>
 
             <div class="dropdown_menu">
-                <li><a href="{{url_for('views.home_page')}}">HOME</a></li>
-                <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
-                <li><a href="{{url_for('order.order_page')}}">ORDER</a></li>
+                <li><a href="{{url_for('views.home_page')}}">Home</a></li>
+                <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
+                <li><a href="{{url_for('order.order_page')}}">Order</a></li>
                 <li>
-                    {% if prompt2 == "LOG OUT" %}
+                    {% if prompt2 == "Sign out" %}
                         <a href="#" onclick="signout()" class="action_btn"> {{ prompt2 }} </a>
                     {% else %}
                         <a href="{{url_for('auth.logout')}}" class="action_btn"> {{ prompt2 }} </a>
@@ -50,12 +50,12 @@
         </h2>
         <div class="order-container">
             <button class="order-btn" id="card_btn">Cards In Use</button>
-            <button class="order-btn" id="date_btn">Date</button>
+            <button class="order-btn" id="date_btn">Date Joined</button>
         </div>
         <div class="container">
             <ul class="orgs">
             </ul>
         </div>
-        <p id="signin prompt"> {{ prompt }} </p>
+        <a href="{{url_for('auth.logout')}}" id="signin-prompt"> {{ prompt }} </a>
     </body>
 </html>
