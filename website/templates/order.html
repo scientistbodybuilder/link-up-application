@@ -12,24 +12,24 @@
     <header>
         <div class="navbar">
             <div class="header-main-logo">
-                <img src="../static/assets/LinkUp-logo1.png" alt="linkup-logo">
+                <a href="{{url_for('views.home_page')}}"><img src="../static/assets/LinkUp-Logo-Trans.png" alt="linkup-logo"></a>
             </div>
             <ul class="links">
-                <li><a href="{{url_for('views.home_page')}}">HOME</a></li>
-                <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
-                <li><a href="{{url_for('order.order_page')}}">ORDER</a></li>
+                <li><a href="{{url_for('views.home_page')}}">Home</a></li>
+                <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
+                <li><a href="{{url_for('order.order_page')}}">Order</a></li>
             </ul>
-            <a href="{{url_for('order.signout')}}" class="action_btn">LOG OUT</a>
+            <a href="{{url_for('order.signout')}}" class="action_btn">Sign out</a>
             <div class="toggle_btn">
                 <i class="fa-solid fa-bars"></i>
             </div>
         </div>
 
         <div class="dropdown_menu">
-            <li><a href="{{url_for('views.home_page')}}">HOME</a></li>
-            <li><a href="{{url_for('views.contact_page')}}">CONTACT</a></li>
-            <li><a href="{{url_for('order.order_page')}}">ORDER</a></li>
-            <li><a href="{{url_for('order.signout')}}" class="action_btn">LOG OUT</a></li>
+            <li><a href="{{url_for('views.home_page')}}">Home</a></li>
+            <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
+            <li><a href="{{url_for('order.order_page')}}">Order</a></li>
+            <li><a href="{{url_for('order.signout')}}" class="action_btn">Sign out</a></li>
         </div>
     </header>
     
