@@ -6,6 +6,7 @@
 }
 :root {
     --dark: #131316;
+    --lightgrey: #eae9e9;
   }
 body {
     display: flex;
@@ -21,11 +22,15 @@ body {
 /* HEADER */
 header{
     width: 100%;
-    height: 80px;
+    height: 70px;
     /* background-color: var(--dark);; */
     display: flex;
     justify-content: space-between;
     position: relative;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    box-shadow: 2px 5px 5px rgba(0,0,0,0.1);
     
 }
 .navbar {
@@ -49,6 +54,17 @@ header{
     padding: 10px 15px;
     border-radius: 22px;
     transition: .5s;
+    border-radius: 10px;
+}
+.auth_nav {
+    display: flex;
+    justify-content: space-between;
+}
+.auth_nav .action_btn {
+    margin-right: 50px;
+}
+.toggle_btn {
+    margin-top: 5px;
 }
 
 .navbar .links {
@@ -56,12 +72,12 @@ header{
     gap: 2rem;
 }
 .navbar ul li a:hover {
-    /*color: #131316;*/
-    /* background-color: #2c2c2f; */
+    background-color: var(--lightgrey);
 }
 
 .header-main-logo img {
     width: 170px;
+    margin-top: 8px;
     align-self: center;
     margin-left: 30px;
 }
@@ -73,7 +89,7 @@ header{
 }
 
 .navbar .toggle_btn{
-    display: none;
+    display: block;
 }
 
 .navbar a {
@@ -83,7 +99,7 @@ header{
 }
 
 .dropdown_menu {
-    display: none;
+    display: block;
     position: absolute;
     top: 80px;
     right: 25px;
@@ -97,7 +113,7 @@ header{
 }
 
 .dropdown_menu.open {
-    height: 180px;
+    height: fit-content;
 }
 
 .dropdown_menu li {
