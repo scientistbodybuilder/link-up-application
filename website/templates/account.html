@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkUp</title>
+    <link rel="stylesheet" href="../static/css/account.css">
+    <script src="https://kit.fontawesome.com/d218daeade.js" crossorigin="anonymous"></script>
+    <script defer src="../static/javascript/account.js"></script>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="header-main-logo">
+                <a href="{{url_for('views.home_page')}}"><img src="../static/assets/LinkUp-Logo-Trans.png" alt="linkup-logo"></a>
+            </div>
+            <ul class="links">
+                <li><a href="{{url_for('views.home_page')}}">Home</a></li>
+                <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
+                <li><a href="{{url_for('order.order_page')}}">Order</a></li>
+            </ul>
+            <div class="auth_nav">
+                <a href="{{url_for('account.signout')}}" class="action_btn">Sign out</a>
+            
+                <div class="toggle_btn">
+                    <i class="fa-solid fa-bars"></i>
+                </div>  
+            </div>
+        </div>
+
+        <div class="dropdown_menu">
+            <li><a href="{{url_for('views.home_page')}}">Home</a></li>
+            <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
+            <li><a href="{{url_for('order.order_page')}}">Order</a></li>
+            <li><a href="{{url_for('account.account_page')}}">My Account</a></li>
+            <li><a href="{{url_for('account.signout')}}" class="action_btn">Sign out</a></li>
+        </div>
+    </header>
+
+    <h2> My Account </h2>
+
+    <h3>Direct Cards purchased:</h3>
+    <h3>Linktree Cards purchased:</h3>
+    <div class="btn-box">
+        <button class="acc_toggle_btn" id="acc_btn">Account</button>
+        <button class="acc_toggle_btn" id="ord_btn">Order History</button>
+    </div>
+    <div class="container">
+        <div class="acc-container">
+            <div class="email-info">
+                <p>Email:</p>
+                <p class="email"></p>
+            </div>
+            <div class="password-info">
+                <p>Password:</p>
+                <p class="password">&#8226 &#8226 &#8226 &#8226 &#8226 &#8226 &#8226 &#8226 &#8226 &#8226 &#8226</p>
+            </div>
+            <div class="email-edit">
+                <button id="edit-email">Edit</button>
+            </div>
+            <div class="password-edit">
+                <button id="toggle-password">Change Password</button>
+            </div>
+        </div>
+    </div>
+    <!--MODAL-->
+    <div class="overlay" id="overlay"></div>
+    <div class="modal-confirm-password">
+        <div class="close-pcm">
+            <i class="fa-solid fa-x"></i>
+        </div>
+        <form class="modal-sub-1" method="POST">
+        <h2>Confirm your existing password</h2>
+        
+        <label for="confirm-password">Password</label>
+        <input type="text" id="confirm-password" name="confirm-password" minlength="7">
+
+        <div class="confirm-password-btns">
+            <button class="cancel-password-button">Cancel</button>
+            <input type="submit" class="confirm-password-button" value="Confirm Password">
+        </form>
+    </div>
+    
+</body>
+</html>
+
+<!-- <h2>Order History</h2>
+            <div class="order-history">
+                <ul class="orders">
+                    <li> order 1</li>
+                </ul>
+            </div> -->
+

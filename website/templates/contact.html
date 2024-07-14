@@ -19,13 +19,15 @@
                 <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
                 <li><a href="{{url_for('order.order_page')}}">Order</a></li>
             </ul>
-            {% if prompt2 == "Sign out" %}
-                <a href="#" onclick="signout()" class="action_btn"> {{ prompt2 }} </a>
-            {% else %}
-                <a href="{{url_for('auth.logout')}}" class="action_btn"> {{ prompt2 }} </a>
-            {% endif %}
-            <div class="toggle_btn">
-                <i class="fa-solid fa-bars"></i>
+            <div class="auth_nav">
+                {% if prompt2 == "Sign out" %}
+                        <a href="#" onclick="signout()" class="action_btn"> {{ prompt2 }} </a>
+                {% else %}
+                        <a href="{{url_for('auth.logout')}}" class="action_btn"> {{ prompt2 }} </a>
+                {% endif %}
+                <div class="toggle_btn">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
             </div>
         </div>
 
@@ -33,6 +35,9 @@
             <li><a href="{{url_for('views.home_page')}}">Home</a></li>
             <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
             <li><a href="{{url_for('order.order_page')}}">Order</a></li>
+            {% if prompt2 == "Sign out" %}
+                <li><a href="{{url_for('account.account_page')}}">My Account</a></li>
+            {% endif %}
             <li>
                 {% if prompt2 == "Sign out" %}
                     <a href="#" onclick="signout()" class="action_btn"> {{ prompt2 }} </a>

@@ -16,10 +16,12 @@ def create_app():
     from .auth import auth
     from .order import order
     from .linktree import linktree
+    from .account import account
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(order, url_prefix='/')
     app.register_blueprint(linktree, url_prefix='/')
+    app.register_blueprint(account, url_prefix='/')
 
     return app
