@@ -12,7 +12,7 @@
         <header>
             <div class="navbar">
                 <div class="header-main-logo">
-                    <a href="{{url_for('views.home_page')}}"><img src="../static/assets/LinkUp-Logo-Trans.png" alt="linkup-logo"></a>
+                    <a href="{{url_for('views.home_page')}}"><img src="../static/assets/LinkUp-Logo-Trans2.png" alt="linkup-logo"></a>
                 </div>
                 <ul class="links">
                     <li><a href="{{url_for('views.home_page')}}">Home</a></li>
@@ -48,19 +48,32 @@
                 </li>
             </div>
         </header>
-        <h1>
-            Our Connections
-        </h1>
-        <h2 class="order">
-            Order By
-        </h2>
-        <div class="order-container">
-            <button class="order-btn" id="card_btn">Cards In Use</button>
-            <button class="order-btn" id="date_btn">Date Joined</button>
-        </div>
-        <div class="container">
-            <ul class="orgs">
-            </ul>
+        <div class="content-box">
+            <div class="text-box">
+                <h1>Elevate your business with a flood of glowing customer reviews!</h1>
+                <h3>With NFC technology, our cards  seamlessly bridge the gap between satisfied customers and your review site</h3>
+                {% if prompt == "Sign in" %}
+                    <a href="{{url_for('auth.logout')}}" class="order_btn">Order Now</a>
+                {% else %}
+                    <a href="{{url_for('order.order_page')}}" class="order_btn">Order Now</a>
+                {% endif %}
+            </div>
+            <div class="scroll-box">
+                <h1>
+                    Our Connections
+                </h1>
+                <h2 class="order">
+                    Order By
+                </h2>
+                <div class="order-container">
+                    <button class="order-btn" id="card_btn">Cards In Use</button>
+                    <button class="order-btn" id="date_btn">Date Joined</button>
+                </div>
+                <div class="container">
+                    <ul class="orgs">
+                    </ul>
+                </div>
+            </div>
         </div>
         <a href="{{url_for('auth.logout')}}" id="signin-prompt"> {{ prompt }} </a>
     </body>
