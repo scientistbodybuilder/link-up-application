@@ -4,6 +4,8 @@ const modal1 = document.querySelector('.modal-confirm-password');
 const overlay = document.getElementById('overlay');
 const emailEditBtn = document.getElementById('edit-email');
 const modalCloseBtn = document.querySelector('.close-pcm');
+const changePasswordBtn = document.getElementById('change-password')
+const confirmPasswordBtn = document.getElementById('password-confirmation')
 
 document.addEventListener('DOMContentLoaded', () => {
     const toggleBtn = document.querySelector('.toggle_btn')
@@ -45,6 +47,8 @@ async function signout(){
 async function getInfo() {
     try {
         const email_field = document.querySelector('.email');
+        const direct_card_field = document.getElementById('direct_card_purchased')
+        const linktree_card_field = document.getElementById('linktree_card_purchased')
 
         const response = await fetch("/acc_get_info",
             {method: 'POST',
@@ -55,7 +59,9 @@ async function getInfo() {
         )
 
         const result = await response.json();
-        email_field.textContent = result['email']
+        email_field.textContent = result['email'];
+        direct_card_field.textContent = `Direct Cards purchased: ${result['direct_card']}`;
+        linktree_card_field.textContent = `Linktree Cards purchased: ${result['linktree_card']}`;
     } catch(e){
         console.log(`Error: ${e}`);
     }
@@ -65,17 +71,33 @@ getInfo()
 
 // EDIT PERSONAL INFORMATION
 
-async function edit(load){
-    try {
-        if (load == "accout"){
-
-        } else {
-
-        }
-    } catch(e) {
-        console.log(`Error: ${e}`)
+changePasswordBtn.addEventListener("click", async ()=>{
+    data = {
+        form: 'password'
     }
-}
+    const response = await fetch("/render_edit_page", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    });
+    const result = await response.json();
+})
+
+confirmPasswordBtn.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const password = document.getElementById('confirm-password').value;
+    data = {
+        form: 'email',
+        check_password: password
+    }
+
+    const response = await fetch("/render_edit_page", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    });
+    const result = await response.json();
+})
 
 
 //TOGGLE BETWEEN ACCOUT VIEWS AND ORDER HISTORY

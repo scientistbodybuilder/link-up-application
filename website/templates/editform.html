@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkUp</title>
+    <link rel="stylesheet" href="../static/css/editform.css">
+    <script defer src="../static/javascript/editform.js"></script>
+    <script src="https://kit.fontawesome.com/d218daeade.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="container">
+    <form method="POST">
+        <h2> Change {{ prompt }} </h2>
+
+        <label for="field">New {{ prompt }}:</label>
+        <input type="text" id="field" name="field">
+
+        <label for="confirm-field">Confirm {{ prompt }}:</label>
+        <input type="text" id="confirm-field" name="confirm-field">
+
+        <input type="submit" value="Confirm">
+
+        <img src="../static/assets/LinkUp-Logo-Trans.png" alt="linkup-logo">
+
+    </form>
+    </div>
+    
+</body>
+</html>

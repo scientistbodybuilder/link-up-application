@@ -6,15 +6,34 @@ from functools import wraps
 auth=Blueprint('auth', __name__)
 
 class User:
-    def __init__(self,email,password):
+    def __init__(self,email,password,linktree_card, direct_card):
         self.email = email
         self.password = password
+        self.LT_card = linktree_card
+        self.D_card = direct_card
+        self.user_id=""
 
 def contains_num(s):
     for char in s:
         if char.isdigit():
             return True
     return False
+
+def checkPassword(password, confirm_password):
+    if len(password)<7:
+            return 2
+    elif password != confirm_password:
+        return 3
+    elif not contains_num(password):
+        return 4
+    return 1
+
+def checkEmail(email, confirm_email):
+    if not("@" in email or "." in email):
+        return 2
+    elif email != confirm_email:
+        return 3
+    return 1
 
 def login_required(f):
     @wraps(f)
@@ -95,7 +114,7 @@ def login_page():
         session.pop("user", None)
         email = request.form['email']
         password = request.form['password']
-        user = User(email, password)
+        user = User(email, password,0,0)
         x = userExist(user)
         if x==1:
             session["user"] = user.email
@@ -117,16 +136,17 @@ def signup_page():
         password = request.form['password']
         confirm_password = request.form["confirm password"]
         
-        if len(password)<7:
+        check = checkPassword(password, confirm_password)
+        if check == 2:
             flash('Password must be atleast 7 characters', category='error')
-        elif password != confirm_password:
+        elif check==3:
             flash('Passwords do not match', category='error')
-        elif not contains_num(password):
+        elif check==4:
             flash('Password must contain a number', category='error')
-        elif not("@" in email):
+        elif not("@" in email or "." in email):
             flash('Email must contain an @ symbol', category='error')
         else:
-            user = User(email,password)
+            user = User(email,password,0,0)
             x = uniqueEmail(user)
             if x:
                 y = createUser(user)
