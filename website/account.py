@@ -32,7 +32,7 @@ def getUser(email):
 def changePassword(email, password):
     try:
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE users passwrd = %s WHERE email = %s", (generate_password_hash(password), email))
+        cur.execute("UPDATE users SET passwrd = %s WHERE email = %s", (generate_password_hash(password), email))
         result = cur.fetchone()
         mysql.connection.commit()
         cur.close()
@@ -58,7 +58,7 @@ def verifyPassword(email, password):
 def changeEmail(id,new_email):
     try:
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE users email = %s WHERE user_id = %s", (new_email,id))
+        cur.execute("UPDATE users SET email = %s WHERE user_id = %s", (new_email,id))
         mysql.connection.commit()
         cur.close()
     except Exception as e:
@@ -98,15 +98,51 @@ def render_form():
     if data['form'] == "password":
         m = "password"
         print(f"request to change password, and m = {m}")
-        return render_template('editform.html', prompt = "Password")
+        return jsonify({"page": url_for('account.edit_page')})
     else:
         print(f"request to change email, and m = {m}")
         password = data['check_password']
         if verifyPassword(password):
             m = "email"
-            return render_template('editform.html', prompt = "Email")
+            return jsonify({"page":url_for('account.edit_page')})
         else:
             flash("Incorrect Password")
+
+@account.route("/edit_page",methods=['GET','POST'])
+@login_required
+def edit_page():
+    if request.method == 'POST':
+        field = request.form['field']
+        print(f"the field is {field}")
+        confirm_field = request.form['confirm-field']
+        print(f"the confirm field is {confirm_field}")
+        if m == "email":
+            x = checkEmail(field, confirm_field)
+            if x:
+                old_email = session["user"]
+                id = getUserId(old_email)
+                changeEmail(id,field)
+                return redirect(url_for('auth.logout'))
+            elif x ==2:
+                flash("Enter a valid email")
+            else:
+                flash("Emails do not match")
+        else:
+            x = checkPassword(field, confirm_field)
+            print(f"check password on {field} is {x}")
+            if x==1:
+                changePassword(session["user"],field)
+                return redirect(url_for('auth.logout'))
+            elif x==2:
+                flash("Password must be atleast 7 characters long")
+            elif x ==3:
+                flash("Passwords do not match")
+            else:
+                flash("Password must contain a number")
+    
+    if m == "password":
+        return render_template('editform.html', prompt = "Password")
+    return render_template('editform.html', prompt = "Email")
 
 @account.route("/update_info",methods=['GET','POST'])
 @login_required

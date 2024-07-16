@@ -184,8 +184,8 @@ header{
 h3 {
     font-weight: 300;
 }
-h2 {
-    margin-top: 40px;
+.title {
+    margin-top: 70px;
     margin-bottom: 30px;
     font-weight: 350;
 }

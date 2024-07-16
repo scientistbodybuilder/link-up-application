@@ -81,6 +81,9 @@ changePasswordBtn.addEventListener("click", async ()=>{
         body: JSON.stringify(data)
     });
     const result = await response.json();
+    const url = result['page']
+    window.location.href=url
+
 })
 
 confirmPasswordBtn.addEventListener("submit", async (e)=>{
