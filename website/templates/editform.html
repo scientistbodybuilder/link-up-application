@@ -22,7 +22,17 @@
 
         <input type="submit" value="Confirm">
 
-        <img src="../static/assets/LinkUp-Logo-Trans.png" alt="linkup-logo">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="flash">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <img src="../static/assets/LinkUp-Logo-Trans2.png" alt="linkup-logo">
 
     </form>
     </div>
