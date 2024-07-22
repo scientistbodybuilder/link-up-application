@@ -10,7 +10,8 @@ body {
     /* align-items: center; */
     justify-content: space-evenly;
     font-family: "Poppins", sans-serif;
-    background: linear-gradient(50deg,#eaeaea 0% 30%, white 70% 100%);
+    background-color: #131316;
+    padding: 5px;
 }
 .bkg {
     width: 100%;
@@ -18,10 +19,11 @@ body {
     background-color: #131316;
 }
 section {
-    height: 100vh;
+    height: 96vh;
     width: 360px;
     border: 1px solid #ccc;
     padding-top: 0;
+    z-index: 10;
     border-radius: 15px;
     background: linear-gradient(50deg,#eaeaea 0% 30%, white 70% 100%);
     display: flex;
@@ -40,14 +42,18 @@ section {
 .head {
     height: 70px;
     width: 100%;
-    background-color: #131316;
-    /* border-radius: 15px; */
+    border-bottom: 1px solid #ccc;
     margin-bottom: 10px;
     margin-top: 0px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
     display: flex;
     justify-content:start;
     align-items: center;
+    box-shadow: 2px 4px 4px rgba(0,0,0,0.3);
 }
+
 .head2{
     align-items: center;
     padding: 20px;
@@ -56,6 +62,10 @@ section {
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 30px;
+}
+h2 {
+    font-size: 40px;
+    font-weight: 300;
 }
 .img1{
     font-size: 35px;
@@ -87,6 +97,7 @@ section {
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-rows: repeat(auto-fit, 200px);
 }
 
 .block {
@@ -108,6 +119,11 @@ section {
 
 .block:hover {
     box-shadow: 2px 4px 5px 3px rgba(0,0,0,0.3);
+}
+
+.ig {
+    height: 200px;
+    margin-top: 15px;
 }
 
 .container .icon1 {

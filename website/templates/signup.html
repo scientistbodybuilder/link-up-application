@@ -7,14 +7,7 @@
     <link rel="stylesheet" href="../static/css/auth.css">
 </head>
 <body>
-    <style>
-        input[type="password"] {
-            width: 90%;
-            padding: 8px;
-            font-size: 15px;
-            border-radius: 4px;
-        }
-    </style>
+
     <section>
         <h2>{{ title }}</h2>
         <form method="POST">
@@ -30,6 +23,7 @@
             <input type="submit" value="Register">
         </form>
         <a href="{{url_for('auth.login_page')}}">{{ prompt }}</a>
+        <a href="{{url_for('auth.recovery_page')}}">Forgot your password?</a>
     
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -47,7 +41,7 @@
     {% endif %}
     {% endwith %}
     <div class="logo">
-        <img src="../static/assets/LinkUp-logo1.png" alt="linkup-logo">
+        <img src="../static/assets/LinkUp-Logo-Trans2.png" alt="linkup-logo">
     </div>
     </section>
 </body>

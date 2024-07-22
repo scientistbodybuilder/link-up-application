@@ -16,7 +16,7 @@
             </div>
             <ul class="links">
                 <li><a href="{{url_for('views.home_page')}}">Home</a></li>
-                <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
+                <li><a class="contact" href="{{url_for('views.contact_page')}}">Contact</a></li>
                 <li><a href="{{url_for('order.order_page')}}">Order</a></li>
             </ul>
             <div class="auth_nav">
@@ -33,7 +33,7 @@
 
         <div class="dropdown_menu">
             <li><a href="{{url_for('views.home_page')}}">Home</a></li>
-            <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
+            <li><a class="contact" href="{{url_for('views.contact_page')}}">Contact</a></li>
             <li><a href="{{url_for('order.order_page')}}">Order</a></li>
             {% if prompt2 == "Sign out" %}
                 <li><a href="{{url_for('account.account_page')}}">My Account</a></li>
@@ -53,6 +53,6 @@
         <p> Phone Number: 123-456-7890</p>
         <p> Email: linkup@gmail.com</p>
     </section> 
-    <a href="{{url_for('auth.logout')}}" id="signin-prompt"> {{ prompt }} </a>
+    <!-- <a href="{{url_for('auth.logout')}}" id="signin-prompt"> {{ prompt }} </a> -->
 </body>
 </html>

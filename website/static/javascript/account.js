@@ -1,9 +1,13 @@
 const accountInfoBtn = document.getElementById('acc_btn');
 const orderHistorybtn = document.getElementById('ord_btn');
+const accContainer = document.getElementById('acc-container');
+const orderContainer = document.getElementById('order-container');
+
 const modal1 = document.querySelector('.modal-confirm-password');
 const overlay = document.getElementById('overlay');
 const emailEditBtn = document.getElementById('edit-email');
 const modalCloseBtn = document.querySelector('.close-pcm');
+const modalCancelBtn = document.querySelector('.cancel-password-button');
 const changePasswordBtn = document.getElementById('change-password')
 const confirmPasswordBtn = document.getElementById('password-confirmation')
 
@@ -69,6 +73,35 @@ async function getInfo() {
 
 getInfo()
 
+async function orderInfo()
+{
+    try {
+        const response = await fetch("/order-history",
+            {method: 'POST',
+                headers: {'Content-Type': 'application/json'}
+            }
+        )
+        const result = await response.json();
+        const orderScroll = document.querySelector('.scroll-box')
+        orderScroll.innerHTML = '';
+        result.forEach(order=>{
+            const orderCard = document.createElement('div');
+            orderCard.classList.add('order');
+
+            orderCard.innerHTML = `
+                    <p class="date">${order.date}</p>
+                    <p class="num-LT">${order.LTcard}</p>
+                    <p class="num-D">${order.Dcard}</p>
+                    <p class="total">${order.total}</p>
+            `
+            orderScroll.appendChild(orderCard);
+        })
+        console.log('complete rendering orders')
+    } catch(e){
+        console.log(`Error: ${e}`)
+    }
+}
+
 // EDIT PERSONAL INFORMATION
 
 changePasswordBtn.addEventListener("click", async ()=>{
@@ -81,40 +114,47 @@ changePasswordBtn.addEventListener("click", async ()=>{
         body: JSON.stringify(data)
     });
     const result = await response.json();
-    const url = result['page']
-    window.location.href=url
+    const url = result['page'];
+    window.location.href=url;
 
 })
 
-confirmPasswordBtn.addEventListener("submit", async (e)=>{
+confirmPasswordBtn.addEventListener("submit", async (e) => {
     e.preventDefault();
     const password = document.getElementById('confirm-password').value;
-    data = {
+    
+    const data = {
         form: 'email',
         check_password: password
+    };
+    try {
+        const response = await fetch("/render_edit_page", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        const result = await response.json();
+        const url = result['page'];
+        window.location.href = url;
+    } catch(e) {
+        console.log(`Error: ${e}`)
     }
-
-    const response = await fetch("/render_edit_page", {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-    });
-    const result = await response.json();
 })
-
 
 //TOGGLE BETWEEN ACCOUT VIEWS AND ORDER HISTORY
 
-async function loadAccount(){
-
+function loadAccount(){
+    accContainer.classList.remove('hidden')
+    orderContainer.classList.add('hidden')
 }
 
-async function loadOrder(){
-    
+function loadOrder(){
+    accContainer.classList.add('hidden')
+    orderContainer.classList.remove('hidden')
 }
 
-accountInfoBtn.addEventListener("click", loadAccount);
-orderHistorybtn.addEventListener("click", loadOrder);
 
 //MODAL FUNCTIONALITY
 function openModal1() {
@@ -132,4 +172,24 @@ function closeModal1() {
 
 emailEditBtn.addEventListener("click", openModal1);
 modalCloseBtn.addEventListener("click", closeModal1);
+modalCancelBtn.addEventListener("click", closeModal1);
 overlay.addEventListener("click", closeModal1);
+
+accountInfoBtn.addEventListener("click", async () => {
+    console.log("loading accout info")
+    try{
+        loadAccount()
+        await getInfo()
+    } catch(e){
+        console.log(`Error: ${e}`)
+    }
+}) 
+orderHistorybtn.addEventListener("click", async ()=> {
+    console.log("loading order info")
+    try {
+        loadOrder()
+        await orderInfo()
+    } catch(e){
+        console.log(`Error: ${e}`)
+    }
+})

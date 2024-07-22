@@ -4,7 +4,8 @@
 :root {
     --bkg: #131316;
     --white: #ffffff;
-    --gry: #ede9e9;
+    --lightgrey: #eae9e9;
+    --purpple:#a21bd1;
   }
 
   *{
@@ -12,14 +13,11 @@
   }
 
 body {
-    /* background: linear-gradient(50deg,#b9b9b9 0% 30%, white 70% 100%); */
     background-color: white;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    place-items: center;
     font-family: "Poppins", sans-serif;
 }
 .logo {
@@ -34,10 +32,12 @@ img {
     height: 90%;
 }
 section {
-    background-color: var(--bkg);
+    /* background-color: var(--bkg); */
     height: fit-content;
     width: 350px;
     border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 4px 4px rgba(0,0,0,0.5);
     margin-top: 70px;
     align-items: center;
     display: flex;
@@ -48,10 +48,11 @@ section {
 }
 
 h2 {
-    color: white;
+    color: var(--bkg);
     align-self: center;
     font-size: 35px;
     margin-top: 10px;
+    font-weight: 300;
 
 }
 
@@ -62,9 +63,9 @@ form {
 
 label {
     display: block;
-    color: white;
+    color: var(--bkg);
     margin-top: 20px;
-    font-size: 22px;
+    font-size: 18px;
 }
 
 input[type="email"] {
@@ -72,31 +73,44 @@ input[type="email"] {
     padding: 8px;
     font-size: 15px;
     border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+input[type="password"] {
+    width: 90%;
+    padding: 8px;
+    font-size: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
 }
 
 input[type="submit"] {
-    margin-top: 40px;
+    margin-top: 20px;
     padding: 8px;
     font-size: 25px;
-    border-radius: 15px;
+    border-radius: 25px;
     width: 160px;
     margin-left: 74px;
     transition: 0.3s;
     margin-bottom: 10px;
-
+    color: white;
+    cursor: pointer;
+    border: none;
+    background-color: var(--purpple);
 }
 
 input[type="submit"]:hover {
-    background-color: var(--bkg);
-    color: white;
-    border: 1px solid white;
-    cursor: pointer;
+    opacity: 0.8;
 }
 
 a {
     text-decoration: none;
-    color: #ede9e9;
-    margin-bottom: 5px;
+    color: var(--bkg);
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+a:hover {
+    color: var(--purpple);
 }
 
 .alert-danger {

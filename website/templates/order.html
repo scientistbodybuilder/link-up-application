@@ -17,7 +17,7 @@
             <ul class="links">
                 <li><a href="{{url_for('views.home_page')}}">Home</a></li>
                 <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
-                <li><a href="{{url_for('order.order_page')}}">Order</a></li>
+                <li><a class="order-link" href="{{url_for('order.order_page')}}">Order</a></li>
             </ul>
 
             <div class="auth_nav">
@@ -31,7 +31,7 @@
         <div class="dropdown_menu">
             <li><a href="{{url_for('views.home_page')}}">Home</a></li>
             <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
-            <li><a href="{{url_for('order.order_page')}}">Order</a></li>
+            <li><a class="order-link" href="{{url_for('order.order_page')}}">Order</a></li>
             <li><a href="{{url_for('account.account_page')}}">My Account</a></li>
             <li><a href="{{url_for('order.signout')}}" class="action_btn">Sign out</a></li>
         </div>

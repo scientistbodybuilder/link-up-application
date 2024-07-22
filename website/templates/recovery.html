@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkUp</title>
+    <script src="https://kit.fontawesome.com/d218daeade.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/css/recovery.css">
+    <script defer src="../static/javascript/recovery.js"></script>
+</head>
+<body>
+    <section class="container">
+        <h2>Password Recovery Form</h2>
+        <div class="success">
+            <div class="check">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <p>Submitted Successfully!</p>
+        </div>
+        <form method="POST">
+            <label for="email">Email connected to your account:</label>
+            <input type="email" name="email" id="email">
+
+            <input type="submit" id = "submitBtn" value="Send">
+        </form>
+
+        <a href="{{url_for('auth.login_page')}}">Back to Login</a>
+        <p class="word"></p>
+        <div class="logo">
+            <img src="../static/assets/LinkUp-Logo-Trans2.png" alt="linkup-logo">
+        </div>
+    </section>
+
+</body>
+</html>

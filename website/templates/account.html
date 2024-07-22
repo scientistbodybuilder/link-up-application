@@ -32,7 +32,7 @@
             <li><a href="{{url_for('views.home_page')}}">Home</a></li>
             <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
             <li><a href="{{url_for('order.order_page')}}">Order</a></li>
-            <li><a href="{{url_for('account.account_page')}}">My Account</a></li>
+            <li><a class="account-link" href="{{url_for('account.account_page')}}">My Account</a></li>
             <li><a href="{{url_for('account.signout')}}" class="action_btn">Sign out</a></li>
         </div>
     </header>
@@ -46,7 +46,7 @@
         <button class="acc_toggle_btn" id="ord_btn">Order History</button>
     </div>
     <div class="container">
-        <div class="acc-container">
+        <div id="acc-container">
             <div class="email-info">
                 <p>Email:</p>
                 <p class="email"></p>
@@ -61,6 +61,20 @@
             <div class="password-edit">
                 <button id="change-password">Change Password</button>
             </div>
+        </div>
+        <!-- DIFFERENT DISPLAYS-->
+        <div id="order-container" class="hidden">
+            <div class="menu">
+                <p >Date</p>
+                <p>Qty Link Tree Cards</p>
+                <p>Qty Direct Cards</p>
+                <p>Total</p>
+            </div>
+                <div class="scroll-box">
+                <ul clas="orders-list">
+                    
+                </ul>
+                </div>
         </div>
     </div>
     <!--MODAL CONFIRM PASSWORD-->
@@ -94,10 +108,4 @@
 </body>
 </html>
 
-<!-- <h2>Order History</h2>
-            <div class="order-history">
-                <ul class="orders">
-                    <li> order 1</li>
-                </ul>
-            </div> -->
 

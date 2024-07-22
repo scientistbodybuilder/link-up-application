@@ -1,7 +1,9 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
-from .model import mysql
+from .model import mysql, mail
+from flask_mail import Message
 from functools import wraps
+import smtplib, os
 
 auth=Blueprint('auth', __name__)
 
@@ -12,6 +14,7 @@ class User:
         self.LT_card = linktree_card
         self.D_card = direct_card
         self.user_id=""
+
 
 def contains_num(s):
     for char in s:
@@ -99,11 +102,15 @@ def userExist(User):
         cur.close()
         if result1:
             if check_password_hash(result1[3], User.password):
-                return 1
+                obj = {
+                    'exist':1,
+                    'id': result1[0]
+                }
+                return obj
             else:
-                return 2
+                return {'exist':2}
         else: 
-            return 0   
+            return {'exist':0}   
     except Exception as e:
         print(f"Error: {e}")
         return 3
@@ -116,12 +123,13 @@ def login_page():
         password = request.form['password']
         user = User(email, password,0,0)
         x = userExist(user)
-        if x==1:
+        if x['exist']==1:
             session["user"] = user.email
+            session["id"] = x['id']
             return redirect(url_for('views.home_page'))
-        elif x==2:
+        elif x['exist']==2:
             flash("Incorrect Password", category='error')
-        elif x==0:
+        elif x['exist']==0:
             flash("Invalid Credentials", category='error')
         else:
             flash("Authentication Error", category='error')
@@ -164,3 +172,15 @@ def signup_page():
 def logout():
     session.pop("user", None)
     return redirect(url_for('auth.login_page'))
+
+@auth.route("/recovery", methods=['GET','POST'])
+def recovery_page():
+    session.pop("user", None)
+    if request.method == "POST":
+        email = request.form['email']
+        msg = "click this suspicious link. KHBKYB731757fvJV42vFV46fBI86FcyF5"
+        # server = smtplib.SMTP("smtp.gmail.com", 465)
+        # server.starttls()
+        # server.login("suspiciousemail54@gmail.com", os.getenv('MAIL_PASSWORD'))
+        # server.sendmail("suspiciousemail54@gmail.com", email, msg)
+    return render_template('recovery.html')

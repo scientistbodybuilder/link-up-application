@@ -7,8 +7,8 @@
 :root {
     --dark: #131316;
     --grey: #343439;
-    --lightgrey: #eae9e9;
-    /* #f0eeee; */
+    --lightgrey: #f7f5f5;
+    --purpple:#a21bd1;
   }
 body {
     display: flex;
@@ -29,7 +29,9 @@ header{
     /* background-color: #131316; */
     display: flex;
     justify-content: space-between;
-    position: relative;
+    background-color: white;
+    position: sticky;
+    top: 0;
     border-top: none;
     border-right: none;
     border-left: none;
@@ -55,7 +57,7 @@ header{
     color: var(--dark);
     font-size: 22px;
     padding: 10px 15px;
-    transition: .5s;
+    /* transition: .5s; */
     border-radius: 10px;
 }
 .auth_nav {
@@ -64,6 +66,16 @@ header{
 }
 .auth_nav .action_btn {
     margin-right: 50px;
+    background-color: var(--purpple);
+    color: white;
+    border-radius: 25px;
+    padding: 8px 10px;
+    font-size: 18px;
+
+}
+
+.auth_nav .action_btn:hover {
+    opacity: 0.8;
 }
 .toggle_btn {
     margin-top: 5px;
@@ -131,11 +143,13 @@ header{
 .dropdown_menu li a {
     text-decoration: none;
     color: var(--dark);
-    transition: .5s;
 }
 
+.dropdown_menu li .account-link {
+    color: var(--purpple);
+}
 .dropdown_menu li a:hover{
-    text-decoration: underline;
+    color: var(--purpple);
 }
 
 .header-main-logout {
@@ -176,9 +190,10 @@ header{
 
 .container {
     display: flex;
-    width: 600px;
+    width: fit-content;
     background-color: white;
     border: 1px solid #ccc;
+    height: fit-content;
 }
 
 h3 {
@@ -216,14 +231,19 @@ h3 {
     background-color: #f6f6f6;
 }
 
-.acc-container {
+#acc-container {
     border: 1px solid #ccc;
-    width: 100%;
+    width: 600px;
     height: 250px;
     display: grid;
     grid-template-rows: 100px 100px;
     grid-template-columns: 450px 150px;
 }
+
+.hidden {
+    display: none;
+}
+
 
 .email-info {
     grid-row: 1/2;
@@ -265,11 +285,9 @@ h3 {
     margin-top: 18px;
 }
 
-.order-container {
 
-}
 
-.acc-container button {
+#acc-container button {
     background-color: white;
     border-radius: 10px;
     padding: 10px;
@@ -282,7 +300,7 @@ h3 {
     transition: .5s;
 }
 
-.acc-container button:hover {
+#acc-container button:hover {
     background-color: #f7f6f6;
     border-color: white;
 }
@@ -295,42 +313,6 @@ h3 {
     margin-left: 14px;
     margin-bottom: 10px;
 }
-
-
-
-/* .container button {
-    border-color: #ccc;
-    padding: 10px;
-    border-radius: 10px;
-    width: 70px;
-    height: 50px;
-    cursor: pointer;
-    box-shadow: 2px 5px 5px rgba(0,0,0,0.1);
-    transition: .5s;
-}
-
-.container button:hover {
-    box-shadow: 2px 5px 5px rgba(0,0,0,0.3);
-}
-
-.order-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.order-container h2 {
-    justify-self: center;
-}
-
-.order-history {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    height: 90%;
-    width: 95%;
-    margin-bottom: 10px;
-} */
-
 
 
 /* MODALS */
@@ -504,4 +486,43 @@ h2 {
         visibility:hidden;
         opacity: 0;
     }
+}
+
+
+/* ORDER CONTAINER STUFF */
+
+#order-container{
+    width: 800px;
+    height: fit-content;
+    border: solid 1x #1f1e1e;
+}
+
+.scroll-box {
+    width: 100%;
+    margin-top: 50px;
+}
+
+#order-container .order {
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: repeat(4, 170px);
+    gap: 10px;
+    place-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    margin-top: 5px;
+
+}
+
+.menu {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 170px 170px 170px 170px;
+    place-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    height: fit-content;
+    border: 1px solid #ccc;
+    font-weight: 500;
 }
