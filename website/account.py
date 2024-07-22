@@ -7,15 +7,27 @@ from datetime import date, datetime
 account=Blueprint('account', __name__)
 m = ""
 
-def getUserId(email):
+def getOrderHistory(id):
     cur = mysql.connection.cursor()
-    try:   
-        cur.execute("SELECT user_id FROM users WHERE email = %s",(email,))
-        result = cur.fetchone()
+    l=[]
+    try:
+        cur.execute("SELECT * FROM orders WHERE user_id = %s", (id,))
+        result = cur.fetchall()
         cur.close()
-        return result[0]
+        for row in result:
+            order = {
+                'date':row[3],
+                'LTcard': row[4],
+                'Dcard': row[5],
+                'total': row[2]
+            }
+            l.append(order)
+        return l
+
     except Exception as e:
-        print(f"Error: ${e}")
+        print(f"Error: {e}")
+        return l
+    
 
 def getUser(email):
     cur = mysql.connection.cursor()
@@ -23,7 +35,7 @@ def getUser(email):
         cur.execute("SELECT * FROM cards WHERE email = %s",(email,))
         result = cur.fetchone()
         user = User(email,"",result[2],result[3])
-        user.user_id = getUserId(email)
+        user.user_id = session["id"]
         cur.close()
         return user
     except Exception as e:
@@ -100,13 +112,14 @@ def render_form():
         print(f"request to change password, and m = {m}")
         return jsonify({"page": url_for('account.edit_page')})
     else:
+        m = "email"
         print(f"request to change email, and m = {m}")
         password = data['check_password']
         if verifyPassword(password):
-            m = "email"
-            return jsonify({"page":url_for('account.edit_page')})
+            return jsonify({"page": url_for('account.edit_page')})
         else:
             flash("Incorrect Password")
+    return render_template('account.html')
 
 @account.route("/edit_page",methods=['GET','POST'])
 @login_required
@@ -119,8 +132,7 @@ def edit_page():
         if m == "email":
             x = checkEmail(field, confirm_field)
             if x:
-                old_email = session["user"]
-                id = getUserId(old_email)
+                id = session["id"]
                 changeEmail(id,field)
                 return redirect(url_for('auth.logout'))
             elif x ==2:
@@ -152,8 +164,7 @@ def updateInfo():
     if m == "email":
         x = checkEmail(field, confirm_field)
         if x:
-            old_email = session["user"]
-            id = getUserId(old_email)
+            id = session["id"]
             changeEmail(id,field)
             return redirect(url_for('auth.logout'))
         elif x ==2:
@@ -171,3 +182,12 @@ def updateInfo():
             flash("Passwords do not match")
         else:
             flash("Password must contain a number")
+
+@account.route("/order-history", methods=['POST'])
+@login_required
+def showHistory():
+    id = session['id']
+    l = getOrderHistory(id)
+    result = [{'date': order['date'], 'LTcard': order['LTcard'], 'Dcard':order['Dcard'], 'total':order['total']} for order in l]
+    print(result)
+    return jsonify(result)

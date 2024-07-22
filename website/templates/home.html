@@ -15,7 +15,7 @@
                     <a href="{{url_for('views.home_page')}}"><img src="../static/assets/LinkUp-Logo-Trans2.png" alt="linkup-logo"></a>
                 </div>
                 <ul class="links">
-                    <li><a href="{{url_for('views.home_page')}}">Home</a></li>
+                    <li><a class="home" href="{{url_for('views.home_page')}}">Home</a></li>
                     <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
                     <li><a href="{{url_for('order.order_page')}}">Order</a></li>
                 </ul>
@@ -33,7 +33,7 @@
             </div>
 
             <div class="dropdown_menu">
-                <li><a href="{{url_for('views.home_page')}}">Home</a></li>
+                <li><a class="home" href="{{url_for('views.home_page')}}">Home</a></li>
                 <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
                 <li><a href="{{url_for('order.order_page')}}">Order</a></li>
                 {% if prompt2 == "Sign out" %}
@@ -75,6 +75,21 @@
                 </div>
             </div>
         </div>
-        <a href="{{url_for('auth.logout')}}" id="signin-prompt"> {{ prompt }} </a>
+        <div class="content-box2">
+            <div class="box1">
+                <img src="../static/assets/woman_holding_card.png" alt="" srcset="">
+            </div>
+            <div class="text2">
+                <p><span>Your business provides excellent products and services but</span>, you have trouble converting satisfied customers into positive reviews.</p>
+                <br>
+                <p class="text">Do you have an overcomplicated review process, which pushes unnessacry steps onto your customer?
+                     Or are you lacking an actionable incentive to present to your customers at the end of service?
+                      Do you have no way of getting customers to know about your entire online presence?</p>
+                    <br>
+                <p class="text"><span>Our Solution:</span> Link Up cards provide a way to compile your entire online presence in one spot,
+                    give them an actionable incentive at the end of their service, and direct them there instantly by simply scanning the card.</p>
+            </div>
+        </div>
+        <!-- <a href="{{url_for('auth.logout')}}" id="signin-prompt"> {{ prompt }} </a> -->
     </body>
 </html>

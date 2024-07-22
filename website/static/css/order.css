@@ -6,7 +6,9 @@
 }
 :root {
     --dark: #131316;
-    --lightgrey: #eae9e9;
+    --grey: #343439;
+    --lightgrey: #f7f5f5;
+    --purpple:#a21bd1;
   }
 body {
     display: flex;
@@ -27,7 +29,9 @@ header{
     /* background-color: var(--dark);; */
     display: flex;
     justify-content: space-between;
-    position: relative;
+    background-color: white;
+    position: sticky;
+    top: 0;
     border-top: none;
     border-right: none;
     border-left: none;
@@ -47,6 +51,9 @@ header{
 .navbar ul li {
     list-style: none;
 }
+.navbar ul li .order-link {
+    background-color: var(--lightgrey);
+}
 
 .navbar ul li a {
     text-decoration: none;
@@ -54,7 +61,7 @@ header{
     font-size: 22px;
     padding: 10px 15px;
     border-radius: 22px;
-    transition: .5s;
+    /* transition: .5s; */
     border-radius: 10px;
 }
 .auth_nav {
@@ -63,6 +70,16 @@ header{
 }
 .auth_nav .action_btn {
     margin-right: 50px;
+    background-color: var(--purpple);
+    color: white;
+    border-radius: 25px;
+    padding: 8px 10px;
+    font-size: 18px;
+
+}
+
+.auth_nav .action_btn:hover {
+    opacity: 0.8;
 }
 .toggle_btn {
     margin-top: 5px;
@@ -130,11 +147,14 @@ header{
 .dropdown_menu li a {
     text-decoration: none;
     color: var(--dark);
-    transition: .5s;
+    /* transition: .5s; */
 }
 
+.dropdown_menu li .order-link {
+    color: var(--purpple);
+}
 .dropdown_menu li a:hover{
-    text-decoration: underline;
+    color: var(--purpple);
 }
 
 .header-main-logout {
