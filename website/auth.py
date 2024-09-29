@@ -14,6 +14,7 @@ class User:
         self.LT_card = linktree_card
         self.D_card = direct_card
         self.user_id=""
+        self.org_name = ""
 
 
 def contains_num(s):
@@ -61,12 +62,26 @@ def uniqueEmail(User):
     except Exception as e:
         print(f"Error: {e}")
         return False
+    
+def uniqueOrganization(org_name):
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute("SELECT * FROM users WHERE org_name = %s", (org_name))
+        org = cur.fetchone()
+        if org:
+            print("Existing organization")
+            return False
+        else:
+            return True
+    except Exception as e:
+            print(f"Error in uniqueOrganization: {e}")
+            return False
 
 def createUser(User):
     cur = mysql.connection.cursor()
     hashed_password = generate_password_hash(User.password, method='pbkdf2:sha256')
     try:
-        cur.execute("INSERT INTO users (email,passwrd) VALUES (%s,%s)", (User.email,hashed_password))
+        cur.execute("INSERT INTO users (org_name,email,passwrd) VALUES (%s,%s,%s)", (User.org_name,User.email,hashed_password))
         mysql.connection.commit()
         cur.close()
         if cur.rowcount == 1:
@@ -83,7 +98,7 @@ def initializeCards(User):
         cur.execute("SELECT user_id FROM users WHERE email = %s", (User.email,))
         user_id = cur.fetchone()
 
-        cur.execute("INSERT INTO cards (user_id, email) VALUES(%s,%s)",(user_id,User.email))
+        cur.execute("INSERT INTO cards (user_id, org_name, email) VALUES(%s,%s,%s)",(user_id,User.org_name,User.email))
         mysql.connection.commit()
         cur.close()
         if cur.rowcount == 1:
@@ -143,6 +158,7 @@ def signup_page():
         email = request.form['email']
         password = request.form['password']
         confirm_password = request.form["confirm password"]
+        org_name = request.form["org_name"]
         
         check = checkPassword(password, confirm_password)
         if check == 2:
@@ -153,8 +169,11 @@ def signup_page():
             flash('Password must contain a number', category='error')
         elif not("@" in email or "." in email):
             flash('Email must contain an @ symbol', category='error')
+        elif (org_name != "") and (not(uniqueOrganization(org_name))):
+            flash('The organization name already exists', category='error')
         else:
             user = User(email,password,0,0)
+            user.org_name = org_name
             x = uniqueEmail(user)
             if x:
                 y = createUser(user)
