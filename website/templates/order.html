@@ -36,6 +36,19 @@
             <li><a href="{{url_for('order.signout')}}" class="action_btn">Sign out</a></li>
         </div>
     </header>
-    
+
+
+    <footer>
+            <div class="footer-logo">
+                <a href="{{url_for('views.home_page')}}"><img src="../static/assets/LinkUp-logo-Trans_W.png" alt="linkup-logo"></a>
+            </div>
+            <div class="footer-links">
+                <a href="{{url_for('views.home_page')}}">Home</a>
+                <a href="{{url_for('views.contact_page')}}">Contact</a>
+                <a href="{{url_for('order.order_page')}}">Order</a>
+                <a href="">Analytics</a>
+            </div>
+            
+        </footer>
 </body>
 </html>

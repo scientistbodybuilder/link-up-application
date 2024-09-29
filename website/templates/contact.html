@@ -49,10 +49,37 @@
     </header>
 
     <section class="hidden">
-        <h1> Contact Us</h1>
-        <p> Phone Number: 123-456-7890</p>
-        <p> Email: linkup@gmail.com</p>
+        <h1> Get In Touch</h1>
+        <div class="contact-actions">
+            <div class="contact-phone">
+                <h2> Phone</h2>
+                <p> Call <span>123-456-7890</span></p>
+            </div>
+            <div class="contact-message">
+                <h2>Send a Message</h2>
+                <form action="" method="POST">
+                    <textarea name="message">
+
+                    </textarea>
+                    <br>
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+        
     </section> 
-    <!-- <a href="{{url_for('auth.logout')}}" id="signin-prompt"> {{ prompt }} </a> -->
+
+    <footer>
+        <div class="footer-logo">
+            <a href="{{url_for('views.home_page')}}"><img src="../static/assets/LinkUp-logo-Trans_W.png" alt="linkup-logo"></a>
+        </div>
+        <div class="footer-links">
+            <a href="{{url_for('views.home_page')}}">Home</a>
+            <a href="{{url_for('views.contact_page')}}">Contact</a>
+            <a href="{{url_for('order.order_page')}}">Order</a>
+            <a href="">Analytics</a>
+        </div>
+        
+    </footer>
 </body>
 </html>

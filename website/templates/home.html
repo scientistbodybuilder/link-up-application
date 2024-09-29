@@ -82,14 +82,25 @@
             <div class="text2">
                 <p><span>Your business provides excellent products and services but</span>, you have trouble converting satisfied customers into positive reviews.</p>
                 <br>
-                <p class="text">Do you have an overcomplicated review process, which pushes unnessacry steps onto your customer?
-                     Or are you lacking an actionable incentive to present to your customers at the end of service?
-                      Do you have no way of getting customers to know about your entire online presence?</p>
+                <p class="text">Do you have an overcomplicated review process, lack an actionable incentive to present to your customers at the end of service,
+                      or have no way of getting customers to know about your online presence?</p>
                     <br>
                 <p class="text"><span>Our Solution:</span> Link Up cards provide a way to compile your entire online presence in one spot,
                     give them an actionable incentive at the end of their service, and direct them there instantly by simply scanning the card.</p>
             </div>
         </div>
-        <!-- <a href="{{url_for('auth.logout')}}" id="signin-prompt"> {{ prompt }} </a> -->
+
+        <footer>
+            <div class="footer-logo">
+                <a href="{{url_for('views.home_page')}}"><img src="../static/assets/LinkUp-logo-Trans_W.png" alt="linkup-logo"></a>
+            </div>
+            <div class="footer-links">
+                <a href="{{url_for('views.home_page')}}">Home</a>
+                <a href="{{url_for('views.contact_page')}}">Contact</a>
+                <a href="{{url_for('order.order_page')}}">Order</a>
+                <a href="">Analytics</a>
+            </div>
+            
+        </footer>
     </body>
 </html>

@@ -78,33 +78,44 @@
         </div>
     </div>
     <!--MODAL CONFIRM PASSWORD-->
-    <div class="overlay" id="overlay"></div>
-    <div class="modal-confirm-password">
-        <div class="close-pcm">
-            <i class="fa-solid fa-x"></i>
+        <div class="overlay" id="overlay"></div>
+        <div class="modal-confirm-password">
+            <div class="close-pcm">
+                <i class="fa-solid fa-x"></i>
+            </div>
+            <form class="modal-sub-1" method="POST" action="{{ url_for('account.render_form') }}">
+            <h2>Confirm your existing password</h2>
+            
+            <label for="confirm-password">Password</label>
+            <input type="text" id="confirm-password" name="confirm-password" minlength="7">
+
+            <div class="confirm-password-btns">
+                <button class="cancel-password-button">Cancel</button>
+                <input type="submit" class="confirm-password-button" id="password-confirmation" value="Confirm Password">
+
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </form>
         </div>
-        <form class="modal-sub-1" method="POST" action="{{ url_for('account.render_form') }}">
-        <h2>Confirm your existing password</h2>
+    <footer>
+        <div class="footer-logo">
+            <a href="{{url_for('views.home_page')}}"><img src="../static/assets/LinkUp-logo-Trans_W.png" alt="linkup-logo"></a>
+        </div>
+        <div class="footer-links">
+            <a href="{{url_for('views.home_page')}}">Home</a>
+            <a href="{{url_for('views.contact_page')}}">Contact</a>
+            <a href="{{url_for('order.order_page')}}">Order</a>
+            <a href="">Analytics</a>
+        </div>
         
-        <label for="confirm-password">Password</label>
-        <input type="text" id="confirm-password" name="confirm-password" minlength="7">
-
-        <div class="confirm-password-btns">
-            <button class="cancel-password-button">Cancel</button>
-            <input type="submit" class="confirm-password-button" id="password-confirmation" value="Confirm Password">
-
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            {% for category, message in messages %}
-                <div class="flash">
-                    {{ message }}
-                </div>
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
-        </form>
-    </div>
-    
+    </footer>
 </body>
 </html>
 
