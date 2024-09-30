@@ -5,6 +5,9 @@ from .auth import login_required, session
 
 order=Blueprint('order', __name__)
 
+def validOrder():
+    pass
+
 @order.route('/order')
 @login_required
 def order_page():
@@ -15,3 +18,8 @@ def order_page():
 def signout():
     session.pop("user", None)
     return redirect(url_for('views.home_page'))
+
+@order.route('/place-order')
+@login_required
+def makeAnOrder():
+    pass

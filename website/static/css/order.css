@@ -194,6 +194,61 @@ header{
 
 /* END HEADER */
 
+/* FORM */
+form {
+    display: inline-block;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    width: 500px;
+    margin-top: 70px;
+    height: fit-content;
+    min-height: 400px;
+    margin-bottom: 30px;
+}
+
+form div {
+    display: block;
+    margin-top: 15px;
+    margin-left: 35px;
+}
+
+form input{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+form textarea {
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 400px;
+    font-family: "Poppins", sans-serif;
+}
+
+input[type="submit"]{
+    margin-left: 187px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 8px;
+    width: 120px;
+    background-color: var(--purpple);
+    color: white;
+    font-size: 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 1px 3px 3px rgba(0,0,0,0.3);
+    transition: 0.5s;
+}
+
+input[type="submit"]:hover {
+    opacity: 0.8;
+}
+/* FORM */
+
 /*FOOTER*/
 
 footer {

@@ -10,3 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 })
 
+
+//FORM RESPONSIVENESS
+
+function linkTree(event){
+    console.log("pressed")
+    const linkNumber = event.target.value
+    const linktreeURLContainer = document.getElementById('linktree-url')
+    linktreeURLContainer.innerHTML = ''  //remove all the existing children
+    for (let i=0; i< linkNumber; i++){  //add new children
+        const urlBlock = document.createElement('textarea')
+        urlBlock.setAttribute('placeholder','Enter Link Tree URL')
+        urlBlock.setAttribute('name',`link-tree-url-${i}`)
+
+        linktreeURLContainer.appendChild(urlBlock)
+    }
+};
+
