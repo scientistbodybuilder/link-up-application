@@ -257,16 +257,19 @@ textarea {
     height: 100px;
     margin-top: 20px;
     resize: none;
+    font-family: "Poppins", sans-serif;
 }
 input[type="submit"] {
     color: white;
     background-color: var(--purpple);
-    border-radius: 10px;
+    border-radius: 25px;
+    width: 105px;
     padding: 10px;
-    font-size: 18px;
+    font-size: 20px;
     border: none;
     cursor: pointer;
     transition: 0.5s;
+    box-shadow: 1px 3px 3px rgba(0,0,0,0.3);
 }
 
 input[type="submit"]:hover {

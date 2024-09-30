@@ -36,7 +36,30 @@
             <li><a href="{{url_for('order.signout')}}" class="action_btn">Sign out</a></li>
         </div>
     </header>
-
+    
+    <form action="" method="POST">
+        <div>
+            <label for="link-cards-qty">Quantity of Link Tree Cards</label><br>
+            <input type="number" min="0" name="link-cards-qty" id="link-cards-qty">
+        </div>
+        <div>
+            <label for="direct-cards-qty">Quantity of Direct Cards</label><br>
+            <input type="number" min="0" name="direct-cards-qty" id="direct-cards-qty">
+        </div>
+        <div>
+            <label for="link-amount">How many links do you want (If link tree)</label><br>
+            <input type="number" name="link-amount" min="0" id="link-amount" onchange="linkTree(event)">
+        </div>
+        <!-- Use javascript to generate n text inputs for urls, when link-amount is > 0 -->
+         <div id="linktree-url">
+         </div>
+        
+        <div>
+            <label for="direct-cards-info">Direct Card URL</label><br>
+            <textarea name="direct-cards-info" id="direct-cards-info" placeholder="Enter Direct URL"></textarea>
+        </div>
+        <input type="submit">
+    </form>
 
     <footer>
             <div class="footer-logo">
