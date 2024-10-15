@@ -11,19 +11,28 @@
 <body>
     <section class="container">
         <h2>Password Recovery Form</h2>
-        <div class="success">
-            <div class="check">
-                <i class="fa-solid fa-check"></i>
-            </div>
-            <p>Submitted Successfully!</p>
-        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div class="msg-error">
+                    {{ message }}
+                </div>
+            {% else %}
+                <div class="msg-success">
+                    {{ message }}
+                </div>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
         <form method="POST">
             <label for="email">Email connected to your account:</label>
             <input type="email" name="email" id="email">
 
             <input type="submit" id = "submitBtn" value="Send">
         </form>
-
+        <p>If the email does not appear in your inbox, check your junk.</p>
         <a href="{{url_for('auth.login_page')}}">Back to Login</a>
         <p class="word"></p>
         <div class="logo">
