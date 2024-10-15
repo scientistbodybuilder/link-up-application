@@ -37,7 +37,8 @@
         </div>
     </header>
     
-    <form action="" method="POST">
+    <h3 class="submission-result"></h3>
+    <form id="form">
         <div>
             <label for="link-cards-qty">Quantity of Link Tree Cards</label><br>
             <input type="number" min="0" name="link-cards-qty" id="link-cards-qty">
@@ -55,12 +56,15 @@
          </div>
         
         <div>
-            <label for="direct-cards-info">Direct Card URL</label><br>
-            <textarea name="direct-cards-info" id="direct-cards-info" placeholder="Enter Direct URL"></textarea>
+            <label for="direct-cards-url">Direct Card URL</label><br>
+            <textarea name="direct-cards-url" id="direct-cards-url" placeholder="Enter Direct URL"></textarea>
         </div>
         <input type="submit">
     </form>
+    <div class = "alert">
 
+    </div>
+  
     <footer>
             <div class="footer-logo">
                 <a href="{{url_for('views.home_page')}}"><img src="../static/assets/LinkUp-logo-Trans_W.png" alt="linkup-logo"></a>
