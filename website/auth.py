@@ -4,8 +4,18 @@ from .model import mysql, mail
 from flask_mail import Message
 from functools import wraps
 import smtplib, os
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from jinja2 import Template
+from dotenv import load_dotenv
 
 auth=Blueprint('auth', __name__)
+load_dotenv()
+HOST = "smtp.gmail.com"
+PORT = 587
+FROM_EMAIL = "linkup.tech.canada@gmail.com"
+PASSWORD = os.getenv('LINKUP_EMAIL_PASSWORD')
+TO_EMAIL = ""
 
 class User:
     def __init__(self,email,password,linktree_card, direct_card):
@@ -48,10 +58,10 @@ def login_required(f):
     return wrapper
 
 
-def uniqueEmail(User):
+def uniqueEmail(email):
     cur = mysql.connection.cursor()
     try:
-        cur.execute("SELECT * FROM users WHERE email = %s", (User.email,))
+        cur.execute("SELECT * FROM users WHERE email = %s", (email,))
         user = cur.fetchone()
         if user:
             print("user exist")
@@ -129,6 +139,8 @@ def userExist(User):
     except Exception as e:
         print(f"Error: {e}")
         return 3
+    
+
 
 @auth.route("/login",methods=['GET','POST'])
 def login_page():
@@ -174,7 +186,7 @@ def signup_page():
         else:
             user = User(email,password,0,0)
             user.org_name = org_name
-            x = uniqueEmail(user)
+            x = uniqueEmail(user.email)
             if x:
                 y = createUser(user)
                 z = initializeCards(user)
@@ -196,10 +208,38 @@ def logout():
 def recovery_page():
     session.pop("user", None)
     if request.method == "POST":
-        email = request.form['email']
-        msg = "click this suspicious link. KHBKYB731757fvJV42vFV46fBI86FcyF5"
-        # server = smtplib.SMTP("smtp.gmail.com", 465)
-        # server.starttls()
-        # server.login("suspiciousemail54@gmail.com", os.getenv('MAIL_PASSWORD'))
-        # server.sendmail("suspiciousemail54@gmail.com", email, msg)
+        TO_EMAIL = request.form['email']
+        #verify whether the email is valid
+        valid = uniqueEmail(TO_EMAIL)
+        if not valid:
+            message = MIMEMultipart()
+            message["From"] = FROM_EMAIL
+            message["To"] = TO_EMAIL
+            message["Subject"] = "LinkUp This is your Recovery URL"
+            html_content = """
+            <html>
+            <body>
+                <p>This is your recovery URL: {{ URL }}</p>
+                <br>
+                <p>LinkUp Canda</p>
+                <p>linkup.tech.canada@gmail.com</p>                      
+                <br>
+            </body>
+            </html>
+            """
+            template = Template(html_content)
+            html = template.render(URL = "some URL")
+            try:
+                server = smtplib.SMTP(HOST,PORT)
+                server.starttls()
+                message.attach(MIMEText(html, 'html'))
+                server.login(FROM_EMAIL,PASSWORD)
+                server.sendmail(FROM_EMAIL,TO_EMAIL,message.as_string())
+                server.quit()
+                flash("Email sent successfully",category='success')
+            except Exception as e:
+                print(f"Sending Recovery Email: {e}")
+                flash("Error in sending email. Try again",category='error')
+        else:
+            flash("Email not in the system",category='error')
     return render_template('recovery.html')

@@ -4,51 +4,26 @@ from .auth import login_required, session
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-import smtplib
+import smtplib, os
+from dotenv import load_dotenv
 from jinja2 import Template
 
 #Email Configs
+load_dotenv()
 HOST = "smtp.gmail.com"
 PORT = 587
 FROM_EMAIL = "linkup.tech.canada@gmail.com"
-PASSWORD = "yhls avny ciai wrca"
+PASSWORD = os.getenv('LINKUP_EMAIL_PASSWORD')
 TO_EMAIL = "linkup.tech.canada@gmail.com"
 
 # price of the cards
-price_LT = 10
-price_D = 5
+price_LT = int(os.getenv('LINKTREE_CARD_PRICE'))
+price_D = int(os.getenv('DIRECT_CARD_PRICE'))
 
 order=Blueprint('order', __name__)
 
-# def validOrder(num_l_card,num_d_card,d_card_url,num_lt_link,l_card_url_list):
-#     if (num_d_card and num_d_card.isdigit()) or (num_l_card and num_l_card.isdigit()):
-#         if num_d_card and num_d_card.isdigit():
-#             numd = int(num_d_card)
-#             if numd > 0: # atleasrt one direct card
-#             # check whether a direct url was added or not
-#                 if d_card_url == '':
-#                     return 2
-#         if num_l_card and num_l_card.isdigit():
-#             numl = int(num_l_card)
-#             if numl > 0: #atleast one link card
-#                 # check whether the link tree url is atleast one
-#                 if num_lt_link < 1:
-#                     return 3
-#                 # check whether all the urls are valid
-#                 for url in l_card_url_list:
-#                     if not url or url == "":
-#                         return 4
-#         # the submission is valid
-#         return 1
-#     else:
-#         return 0
-
-
 def calcPrice(num_direct_card,num_linktree_card):
     return num_direct_card*price_D + num_linktree_card*price_LT
-
-# def orderSuccess():
-#     pass
 
 @order.route('/order')
 @login_required

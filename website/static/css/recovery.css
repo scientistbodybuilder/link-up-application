@@ -70,15 +70,15 @@ h2 {
     font-size: 50px;
     color: rgb(7, 95, 7);
 }
-.success p {
+.msg-success {
     color: green;
 }
-.success {
-    display: none;
-    place-items: center;
+.msg-error {
+    color: red;
 }
-.success.show {
-    display: grid;
+p {
+    font-size: 13px;
+    margin-top: 10px;
 }
 
 form {
