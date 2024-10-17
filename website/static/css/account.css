@@ -20,6 +20,7 @@ body {
     /* min-height: 100vh; */
     background-repeat: no-repeat;
     background-attachment: fixed;
+    margin-bottom: 0;
 }
 
 /* HEADER */
@@ -55,10 +56,10 @@ header{
 .navbar ul li a {
     text-decoration: none;
     color: var(--dark);
-    font-size: 22px;
-    padding: 10px 15px;
+    font-size: 19px;
+    padding: 7px 12px;
     /* transition: .5s; */
-    border-radius: 10px;
+    border-radius: 18px;
 }
 .auth_nav {
     display: flex;
@@ -195,13 +196,15 @@ header{
     background-color: white;
     border: 1px solid #ccc;
     height: fit-content;
+    border-radius: 5px;
+    margin-bottom: 41px;
 }
 
 h3 {
     font-weight: 300;
 }
 .title {
-    margin-top: 70px;
+    margin-top: 60px;
     margin-bottom: 30px;
     font-weight: 350;
 }
@@ -234,6 +237,7 @@ h3 {
 
 #acc-container {
     border: 1px solid #ccc;
+    border-radius: 5px;
     width: 600px;
     height: 250px;
     display: grid;
@@ -319,7 +323,7 @@ h3 {
 /* MODALS */
 
 .modal-confirm-password {
-    position: absolute;
+    position: fixed;
     display: grid;
     place-items: center;
     justify-self: center;
@@ -543,6 +547,7 @@ footer {
     border-left: none;
     border-right: none;
     margin-top: auto;
+    margin-bottom: 0;
 }
 
 .footer-links a{

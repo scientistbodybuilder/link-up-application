@@ -59,11 +59,11 @@ header{
 .navbar ul li a {
     text-decoration: none;
     color: var(--dark);
-    font-size: 22px;
-    padding: 10px 15px;
+    font-size: 19px;
+    padding: 7px 12px;
     border-radius: 22px;
     /* transition: .5s; */
-    border-radius: 10px;
+    border-radius: 18px;
 }
 .auth_nav {
     display: flex;
