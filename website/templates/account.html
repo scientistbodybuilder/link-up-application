@@ -36,74 +36,47 @@
             <li><a href="{{url_for('account.signout')}}" class="action_btn">Sign out</a></li>
         </div>
     </header>
+        <h2 class="title"> My Account </h2>
 
-    <h2 class="title"> My Account </h2>
-
-    <h3 id="direct_card_purchased">Direct Cards purchased:</h3>
-    <h3 id="linktree_card_purchased">Linktree Cards purchased:</h3>
-    <div class="btn-box">
-        <button class="acc_toggle_btn" id="acc_btn">Account</button>
-        <button class="acc_toggle_btn" id="ord_btn">Order History</button>
-    </div>
-    <div class="container">
-        <div id="acc-container">
-            <div class="email-info">
-                <p>Email:</p>
-                <p class="email"></p>
-            </div>
-            <div class="password-info">
-                <p>Password:</p>
-                <p class="password">&#8226 &#8226 &#8226 &#8226 &#8226 &#8226 &#8226 &#8226 &#8226 &#8226 &#8226</p>
-            </div>
-            <div class="email-edit">
-                <button id="edit-email">Edit</button>
-            </div>
-            <div class="password-edit">
-                <button id="change-password">Change Password</button>
-            </div>
+        <h3 id="direct_card_purchased">Direct Cards purchased:</h3>
+        <h3 id="linktree_card_purchased">Linktree Cards purchased:</h3>
+        <div class="btn-box">
+            <button class="acc_toggle_btn" id="acc_btn">Account</button>
+            <button class="acc_toggle_btn" id="ord_btn">Order History</button>
         </div>
-        <!-- DIFFERENT DISPLAYS-->
-        <div id="order-container" class="hidden">
-            <div class="menu">
-                <p >Date</p>
-                <p>Qty Link Tree Cards</p>
-                <p>Qty Direct Cards</p>
-                <p>Total</p>
-            </div>
-                <div class="scroll-box">
-                <ul clas="orders-list">
-                    
-                </ul>
+        <div class="container">
+            <div id="acc-container">
+                <div class="email-info">
+                    <p>Email:</p>
+                    <p class="email"></p>
                 </div>
-        </div>
-    </div>
-    <!--MODAL CONFIRM PASSWORD-->
-        <div class="overlay" id="overlay"></div>
-        <div class="modal-confirm-password">
-            <div class="close-pcm">
-                <i class="fa-solid fa-x"></i>
+                <div class="password-info">
+                    <p>Password:</p>
+                    <p class="password">&#8226 &#8226 &#8226 &#8226 &#8226 &#8226 &#8226 &#8226 &#8226 &#8226 &#8226</p>
+                </div>
+                <div class="email-edit">
+                    <button id="edit-email">Edit</button>
+                </div>
+                <div class="password-edit">
+                    <button id="change-password">Change Password</button>
+                </div>
             </div>
-            <form class="modal-sub-1" method="POST" action="{{ url_for('account.render_form') }}">
-            <h2>Confirm your existing password</h2>
-            
-            <label for="confirm-password">Password</label>
-            <input type="text" id="confirm-password" name="confirm-password" minlength="7">
-
-            <div class="confirm-password-btns">
-                <button class="cancel-password-button">Cancel</button>
-                <input type="submit" class="confirm-password-button" id="password-confirmation" value="Confirm Password">
-
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                {% for category, message in messages %}
-                    <div class="flash">
-                        {{ message }}
+            <!-- DIFFERENT DISPLAYS-->
+            <div id="order-container" class="hidden">
+                <div class="menu">
+                    <p >Date</p>
+                    <p>Qty Link Tree Cards</p>
+                    <p>Qty Direct Cards</p>
+                    <p>Total</p>
+                </div>
+                    <div class="scroll-box">
+                    <ul clas="orders-list">
+                        
+                    </ul>
                     </div>
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
-            </form>
+            </div>
         </div>
+        
     <footer>
         <div class="footer-logo">
             <a href="{{url_for('views.home_page')}}"><img src="../static/assets/LinkUp-logo-Trans_W.png" alt="linkup-logo"></a>
@@ -116,6 +89,33 @@
         </div>
         
     </footer>
+    <!--MODAL CONFIRM PASSWORD-->
+    <div class="overlay" id="overlay"></div>
+    <div class="modal-confirm-password">
+        <div class="close-pcm">
+            <i class="fa-solid fa-x"></i>
+        </div>
+        <form class="modal-sub-1" method="POST" action="{{ url_for('account.render_form') }}">
+        <h2>Confirm your existing password</h2>
+        
+        <label for="confirm-password">Password</label>
+        <input type="text" id="confirm-password" name="confirm-password" minlength="7">
+
+        <div class="confirm-password-btns">
+            <button class="cancel-password-button">Cancel</button>
+            <input type="submit" class="confirm-password-button" id="password-confirmation" value="Confirm Password">
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </form>
+    </div>
 </body>
 </html>
 
