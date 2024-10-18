@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../static/css/base.css">
         <link  rel="stylesheet" href="../static/css/home.css">
         <script defer src="../static/javascript/home.js"></script>
         <script src="https://kit.fontawesome.com/d218daeade.js" crossorigin="anonymous"></script>
@@ -15,7 +16,7 @@
                     <a href="{{url_for('views.home_page')}}"><img src="../static/assets/LinkUp-Logo-Trans2.png" alt="linkup-logo"></a>
                 </div>
                 <ul class="links">
-                    <li><a class="home" href="{{url_for('views.home_page')}}">Home</a></li>
+                    <li><a class="cur-page-nav" href="{{url_for('views.home_page')}}">Home</a></li>
                     <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
                     <li><a href="{{url_for('order.order_page')}}">Order</a></li>
                 </ul>
@@ -33,7 +34,7 @@
             </div>
 
             <div class="dropdown_menu">
-                <li><a class="home" href="{{url_for('views.home_page')}}">Home</a></li>
+                <li><a class="cur-page-dropdown" href="{{url_for('views.home_page')}}">Home</a></li>
                 <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
                 <li><a href="{{url_for('order.order_page')}}">Order</a></li>
                 {% if prompt2 == "Sign out" %}
@@ -77,7 +78,7 @@
         </div>
         <div class="content-box2">
             <div class="box1">
-                <img src="../static/assets/woman_holding_card.png" alt="" srcset="">
+                <img src="../static/assets/LinkUp-card.png" alt="" srcset="">
             </div>
             <div class="text2">
                 <p><span>Your business provides excellent products and services but</span>, you have trouble converting satisfied customers into positive reviews.</p>
