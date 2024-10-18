@@ -2,9 +2,22 @@ from flask import Blueprint, render_template, redirect, url_for, request, jsonif
 from .model import mysql
 from .auth import session
 from datetime import date, datetime
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import smtplib, os
+from dotenv import load_dotenv
+from jinja2 import Template
 
 views=Blueprint('views', __name__)
 m = "card"
+
+#Email Configs
+load_dotenv()
+HOST = "smtp.gmail.com"
+PORT = 587
+FROM_EMAIL = "linkup.tech.canada@gmail.com"
+PASSWORD = os.getenv('LINKUP_EMAIL_PASSWORD')
+TO_EMAIL = "linkup.tech.canada@gmail.com"
 
 class CardButton():
     def __init__(self,name,card_num,date):
@@ -51,14 +64,48 @@ def home_page():
     list = orderOrg(m)
     print(list)
     if "user" not in session:
-        return render_template('home.html', prompt="Sign in to make an order", prompt2 = "Sign in")
+        return render_template('home.html', prompt2 = "Sign in")
     return render_template('home.html', prompt2 = "Sign out")
 
 @views.route("/contact")
 def contact_page():
     if "user" not in session:
-        return render_template('contact.html', prompt="Sign in to make an order", prompt2 = "Sign in")
+        return render_template('contact.html', prompt2 = "Sign in")
     return render_template('contact.html', prompt2 = "Sign out")
+
+@views.route("/contact-message", methods=['POST'])
+def send_message():
+    data = request.get_json()
+    msg = data['msg']
+
+    message = MIMEMultipart()
+    message["From"] = FROM_EMAIL
+    message["To"] = TO_EMAIL
+    message["Subject"] = f"Inquiry from {session["user"]}"
+
+    html_content = """
+        <html>
+        <body>
+            <p>{{ msg }}</p>
+        </body>
+        </html>
+        """
+    template = Template(html_content)
+    html = template.render(msg=msg)
+    try:
+        server = smtplib.SMTP(HOST,PORT)
+        message.attach(MIMEText(html, 'html'))
+        server.starttls()
+        server.login(FROM_EMAIL,PASSWORD)
+        server.sendmail(FROM_EMAIL,TO_EMAIL,message.as_string())
+        server.quit()
+
+        # signal to user that order completed successfully
+        return jsonify({'status': 'success'})
+    except Exception as e:
+        print(f"Sending Order Email:{e}")
+        # signal that the order did not go through successfully
+        return jsonify({'status': 'error'})
 
 @views.route("/fetch_order_change", methods=["POST"])
 # @login_required

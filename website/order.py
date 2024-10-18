@@ -53,7 +53,7 @@ def submit_order():
     message = MIMEMultipart()
     message["From"] = FROM_EMAIL
     message["To"] = TO_EMAIL
-    message["Subject"] = f"New Order from {session["user"]}"
+    message["Subject"] = f"Order from {session["user"]}"
 
     if LC_amount == 0:  # ordering only direct cards           
         html_content = """
@@ -106,8 +106,8 @@ def submit_order():
         </body>
         </html>
         """
-    template = Template(html_content)
-    html = template.render(url_list = link_list, d_amount = DC_amount, l_amount = LC_amount, link=DC_link)                    
+        template = Template(html_content)
+        html = template.render(url_list = link_list, d_amount = DC_amount, l_amount = LC_amount, link=DC_link)                    
     # send the email
     try:
         server = smtplib.SMTP(HOST,PORT)
