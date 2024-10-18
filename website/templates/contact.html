@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkUp</title>
+    <link rel="stylesheet" href="../static/css/base.css">
     <link  rel="stylesheet" href="../static/css/contact.css">
     <script defer src="../static/javascript/contact.js"></script>
     <script src="https://kit.fontawesome.com/d218daeade.js" crossorigin="anonymous"></script>
@@ -16,7 +17,7 @@
             </div>
             <ul class="links">
                 <li><a href="{{url_for('views.home_page')}}">Home</a></li>
-                <li><a class="contact" href="{{url_for('views.contact_page')}}">Contact</a></li>
+                <li><a class="cur-page-nav" href="{{url_for('views.contact_page')}}">Contact</a></li>
                 <li><a href="{{url_for('order.order_page')}}">Order</a></li>
             </ul>
             <div class="auth_nav">
@@ -33,7 +34,7 @@
 
         <div class="dropdown_menu">
             <li><a href="{{url_for('views.home_page')}}">Home</a></li>
-            <li><a class="contact" href="{{url_for('views.contact_page')}}">Contact</a></li>
+            <li><a class="cur-page-dropdown" href="{{url_for('views.contact_page')}}">Contact</a></li>
             <li><a href="{{url_for('order.order_page')}}">Order</a></li>
             {% if prompt2 == "Sign out" %}
                 <li><a href="{{url_for('account.account_page')}}">My Account</a></li>
@@ -48,7 +49,7 @@
         </div>
     </header>
 
-    <section class="hidden">
+    <section>
         <h1> Get In Touch</h1>
         <div class="contact-actions">
             <div class="contact-phone">

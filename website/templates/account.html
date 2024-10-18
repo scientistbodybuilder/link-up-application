@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkUp</title>
+    <link rel="stylesheet" href="../static/css/base.css">
     <link rel="stylesheet" href="../static/css/account.css">
     <script src="https://kit.fontawesome.com/d218daeade.js" crossorigin="anonymous"></script>
     <script defer src="../static/javascript/account.js"></script>
@@ -32,7 +33,7 @@
             <li><a href="{{url_for('views.home_page')}}">Home</a></li>
             <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
             <li><a href="{{url_for('order.order_page')}}">Order</a></li>
-            <li><a class="account-link" href="{{url_for('account.account_page')}}">My Account</a></li>
+            <li><a class="cur-page-dropdown" href="{{url_for('account.account_page')}}">My Account</a></li>
             <li><a href="{{url_for('account.signout')}}" class="action_btn">Sign out</a></li>
         </div>
     </header>
