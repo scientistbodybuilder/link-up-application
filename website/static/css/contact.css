@@ -1,48 +1,37 @@
 body {
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    align-items: center;
+    justify-content: center;
     min-height: 100vh;
-    font-family: "Poppins", sans-serif;
+    font-family: "Inter", sans-serif;
     background-color: white;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
 h1 {
-    font-size: 55px;
+    font-size: 30px;
     font-weight: 200;
-    margin-top: 70px;
+    margin-bottom: 30px;
+    align-items: center;
+    text-align: center;
 }
-section {
-    display: grid;
-    place-items: center;
-    min-height: 70vh;
-    color: var(--text-grey);
-    width: 100%;
 
-}
 
 /* CONTACT AREA */
-.contact-actions {
-    height: fit-content;
-    display: grid;
-    width: 60%;
-    place-items: center;
-    align-items: center;
-    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-    gap: 1px;
-    margin-bottom: 50px;
-}
 
-.contact-actions h2 {
-    font-size: 30px;
-    font-weight: 300;
+form {
+    border: solid 1px #ccc;
+    border-radius: 10px;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 50px;
 }
 
 .contact-actions div {
-    min-height: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,16 +39,25 @@ section {
 }
 
 .contact-phone p{
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: 18px;
 }
-.contact-phone {
-    margin-bottom: 72px;
-}
+
 
 .contact-phone span:hover {
     color: var(--purpple);
     cursor: pointer;
+}
+
+/*MESSAGE*/
+form label {
+    margin-bottom: 7px;
+}
+input[type="email"] {
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    width: 370px;
+    font-family: "Inter", sans-serif;
+    padding: 10px 15px;
 }
 
 textarea {
@@ -68,17 +66,19 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 7px;
     height: 100px;
-    margin-top: 20px;
     resize: none;
-    font-family: "Poppins", sans-serif;
+    font-family: "Inter", sans-serif;
+
 }
+
 input[type="submit"] {
     color: white;
     background-color: var(--purpple);
-    border-radius: 25px;
+    border-radius: 24px;
     width: 105px;
     padding: 10px;
-    font-size: 20px;
+    font-size: 1.1rem;
+    align-self: center;
     border: none;
     cursor: pointer;
     transition: 0.5s;

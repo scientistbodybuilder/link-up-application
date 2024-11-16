@@ -5,6 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../static/css/base.css">
         <link  rel="stylesheet" href="../static/css/home.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
         <script defer src="../static/javascript/home.js"></script>
         <script src="https://kit.fontawesome.com/d218daeade.js" crossorigin="anonymous"></script>
         <title>LinkUp</title>
@@ -15,24 +18,25 @@
                 <div class="header-main-logo">
                     <a href="{{url_for('views.home_page')}}"><img src="../static/assets/LinkUp-Logo-Trans2.png" alt="linkup-logo"></a>
                 </div>
-                <ul class="links">
-                    <li><a class="cur-page-nav" href="{{url_for('views.home_page')}}">Home</a></li>
-                    <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
-                    <li><a href="{{url_for('order.order_page')}}">Order</a></li>
-                </ul>
-                <div class="auth_nav">
-                    {% if prompt2 == "Sign out" %}
-                        <a href="#" onclick="signout()" class="action_btn"> {{ prompt2 }} </a>
-                    {% else %}
-                        <a href="{{url_for('auth.logout')}}" class="action_btn"> {{ prompt2 }} </a>
-                    {% endif %}
+                <div class="nav-links">
+                    <ul class="links">
+                        <li><a href="{{url_for('views.home_page')}}">Home</a></li>
+                        <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
+                        <li><a href="{{url_for('order.order_page')}}">Order</a></li>
+                        <li>
+                            {% if prompt2 == "Sign out" %}
+                                <a href="#" onclick="signout()" class="action_btn"> {{ prompt2 }} </a>
+                            {% else %}
+                                <a href="{{url_for('auth.logout')}}" class="action_btn"> {{ prompt2 }} </a>
+                            {% endif %}
+                        </li>
+                    </ul>
                     <div class="toggle_btn">
                         <i class="fa-solid fa-bars"></i>
                     </div>
                 </div>
-                
             </div>
-
+                
             <div class="dropdown_menu">
                 <li><a class="cur-page-dropdown" href="{{url_for('views.home_page')}}">Home</a></li>
                 <li><a href="{{url_for('views.contact_page')}}">Contact</a></li>
@@ -54,9 +58,9 @@
                 <h1>Elevate your business with a flood of glowing customer reviews!</h1>
                 <h3>With NFC technology, our cards  seamlessly bridge the gap between satisfied customers and your review site</h3>
                 {% if prompt == "Sign in" %}
-                    <a href="{{url_for('auth.logout')}}" class="order_btn">Order Now</a>
+                    <a href="{{url_for('auth.logout')}}" class="order_btn">Boost your Reviews Today</a>
                 {% else %}
-                    <a href="{{url_for('order.order_page')}}" class="order_btn">Order Now</a>
+                    <a href="{{url_for('order.order_page')}}" class="order_btn">Boost your Reviews Today</a>
                 {% endif %}
             </div>
             <div class="scroll-box">

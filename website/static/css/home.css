@@ -1,14 +1,12 @@
 body {
     display: grid;
     place-items: center;
-    font-family: "Poppins", sans-serif;
-    /* background: linear-gradient(50deg,#b9b9b9 0% 30%, white 70% 100%); */
+    font-family: "Inter", sans-serif;
     background-color: white;
     min-height: 100vh;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
-
 
 .content-box {
     width: 90%;
@@ -32,21 +30,21 @@ body {
 }
 
 .text-box a {
-    padding: 10px;
+    padding: 8px 15px;
     border-radius: 12px;
     border: none;
     background-color: var(--purpple);
     color: white;
     text-decoration: none;
     cursor: pointer;
-    font-size: 25px;
+    font-size: 20px;
     box-shadow: 2px 3px 3px rgba(0,0,0,0.3);
 }
 .text-box a:hover {
     opacity: 0.8;
 }
 .scroll-box h1 {
-    font-family: "Poppins";
+    font-family: "Inter";
     text-decoration: none;
     font-weight: 250;
     font-size: 30px;
@@ -122,7 +120,7 @@ body {
 }
 
 .drop-down button{
-    background-color: rgb(67, 67, 72);
+    background-color: rgb(113, 113, 117);
     color: white;
     padding: 20px;
     min-width: 300px;
@@ -147,9 +145,9 @@ body {
     width: 150px;
     padding: 7px;
     margin: 0;
-    background-color:var(--purpple);
-    color: white;
+    color: var(--dark);
     border-radius: 10px;
+    background-color: transparent;
 }
 
 
@@ -158,6 +156,7 @@ body {
     margin-top: 5px;
     border-radius: 8px;
     display: flex;
+    font-weight: 500;
     justify-content:space-evenly;
     margin-bottom: 15px;
 }
@@ -169,9 +168,6 @@ body {
     
 }
 
-.order-container button:hover {
-    opacity: 0.7;
-}
 
 #signin-prompt {
     font-size: 20px;
@@ -185,27 +181,28 @@ body {
     margin-top: 50px;
     width: 90%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     place-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 2rem;
+    margin-bottom: 40px;
 }
 .text2 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 500px;
+    width: 400px;
     /* border: 1px solid #ccc; */
     padding: 10px;
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: 200;
     color: var(--dark);
+    box-sizing: border-box;
 }
 .text2 span {
-    font-size: 23px;
+    font-size: 1.4rem;
     font-weight: 500;
-    color: var(--purpple);
+    color: var(--dark);
 }
 /* .text {
     font-size: 14px;
@@ -213,11 +210,11 @@ body {
 .text span {
     font-size: 22px;
     font-weight: 500;
-    color: var(--purpple);
+    color: var(--dark);
 }
 
 .box1 {
-    width: 400px;
+    width: 370px;
     height: 400px;
     /* border: 1px solid #ccc; */
     display: grid;
@@ -226,5 +223,5 @@ body {
 }
 
 .box1 img {
-    height: 450px;
+    height: 420px;
 }
