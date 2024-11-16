@@ -146,13 +146,15 @@ confirmPasswordBtn.addEventListener("submit", async (e) => {
 //TOGGLE BETWEEN ACCOUT VIEWS AND ORDER HISTORY
 
 function loadAccount(){
-    accContainer.classList.remove('hidden')
-    orderContainer.classList.add('hidden')
+    console.log('load account')
+    accContainer.style.display = "block";
+    orderContainer.style.display = "none";
 }
 
 function loadOrder(){
-    accContainer.classList.add('hidden')
-    orderContainer.classList.remove('hidden')
+    console.log('load order')
+    accContainer.style.display = "none";
+    orderContainer.style.display = "block";
 }
 
 
