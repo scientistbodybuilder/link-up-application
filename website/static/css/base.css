@@ -203,7 +203,6 @@ footer {
     justify-content: space-between;
     width: 100%;
     bottom: 0;
-    left: 0;
     height: 70px;
     background-color: var(--grey);
     border-top: 1px solid #ccc;
