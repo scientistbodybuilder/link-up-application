@@ -191,7 +191,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 400px;
+    width: 80%;
     /* border: 1px solid #ccc; */
     padding: 10px;
     font-size: 1.2rem;
@@ -224,4 +224,10 @@ body {
 
 .box1 img {
     height: 420px;
+}
+
+@media (max-width: 768px) {
+    .text2 {
+        width: 400px;
+    }
 }
