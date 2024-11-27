@@ -92,7 +92,7 @@ async function orderInfo()
                     <p class="date">${order.date}</p>
                     <p class="num-LT">${order.LTcard}</p>
                     <p class="num-D">${order.Dcard}</p>
-                    <p class="total">${order.total}</p>
+                    <p class="total">$${order.total}</p>
             `
             orderScroll.appendChild(orderCard);
         })

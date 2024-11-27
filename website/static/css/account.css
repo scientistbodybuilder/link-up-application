@@ -371,3 +371,19 @@ h2 {
     font-weight: 500;
     font-size: 1rem;
 }
+
+@media (max-width: 768px) {
+    #order-container p{
+        font-size: 0.7rem;
+        width: 90px;
+    }
+
+    .menu {
+        grid-template-columns:  repeat(4, minmax(110px, 1fr));
+        gap: 5px;
+        justify-content: space-evenly;
+    }
+    .menu p {
+        width: 100%;
+    }
+}
