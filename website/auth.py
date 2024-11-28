@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
-from .model import mysql, mail
-from flask_mail import Message
+from .model import mysql
 from functools import wraps
 import smtplib, os
 from email.mime.multipart import MIMEMultipart
