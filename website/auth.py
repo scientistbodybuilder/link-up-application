@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
-from .model import mysql
+from .model import Users, Cards, db
 from functools import wraps
 import smtplib, os
 from email.mime.multipart import MIMEMultipart
@@ -58,25 +58,27 @@ def login_required(f):
 
 
 def uniqueEmail(email):
-    cur = mysql.connection.cursor()
+    # cur = mysql.connection.cursor()
     try:
-        cur.execute("SELECT * FROM users WHERE email = %s", (email,))
-        user = cur.fetchone()
+        user = Users.query.filter_by(email=email).first()
         if user:
-            print("user exist")
             print(user)
+            print(f"user with {email} already exist")
+            print(Users.query.all())
             return False
         else:
+            print(f"user with {email} does not exist")
             return True
     except Exception as e:
         print(f"Error: {e}")
         return False
     
 def uniqueOrganization(org_name):
-    cur = mysql.connection.cursor()
+    # cur = mysql.connection.cursor()
     try:
-        cur.execute("SELECT * FROM users WHERE org_name = %s", (org_name))
-        org = cur.fetchone()
+        # cur.execute("SELECT * FROM users WHERE org_name = %s", (org_name))
+        # org = cur.fetchone()
+        org = Users.query.filter_by(org_name=org_name).first()
         if org:
             print("Existing organization")
             return False
@@ -87,31 +89,45 @@ def uniqueOrganization(org_name):
             return False
 
 def createUser(User):
-    cur = mysql.connection.cursor()
+    # cur = mysql.connection.cursor()
     hashed_password = generate_password_hash(User.password, method='pbkdf2:sha256')
     try:
-        cur.execute("INSERT INTO users (org_name,email,passwrd) VALUES (%s,%s,%s)", (User.org_name,User.email,hashed_password))
-        mysql.connection.commit()
-        cur.close()
-        if cur.rowcount == 1:
-            return 1
-        else:
-            return 0
+        new_user = Users(org_name=User.org_name, email=User.email, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        # cur.execute("INSERT INTO users (org_name,email,passwrd) VALUES (%s,%s,%s)", (User.org_name,User.email,hashed_password))
+        # mysql.connection.commit()
+        # cur.close()
+        # if cur.rowcount == 1:
+        #     return 1
+        # else:
+        #     return 0
+        print("user created")
     except Exception as e:
             print(f"Error: {e}")
             return 0
     
 def initializeCards(User):
-    cur = mysql.connection.cursor()
+    # cur = mysql.connection.cursor()
     try:
-        cur.execute("SELECT user_id FROM users WHERE email = %s", (User.email,))
-        user_id = cur.fetchone()
+        # cur.execute("SELECT user_id FROM users WHERE email = %s", (User.email,))
+        # user_id = cur.fetchone()
+        user = Users.query.filter_by(email=User.email).first()
+        if user:
+            user_id = user.user_id
 
-        cur.execute("INSERT INTO cards (user_id, org_name, email) VALUES(%s,%s,%s)",(user_id,User.org_name,User.email))
-        mysql.connection.commit()
-        cur.close()
-        if cur.rowcount == 1:
+            #insert
+            cards = Cards(user_id=user_id, org_name=User.org_name, email = User.email)
+            db.session.add(cards)
+            db.session.commit()
             return 1
+
+
+        # cur.execute("INSERT INTO cards (user_id, org_name, email) VALUES(%s,%s,%s)",(user_id,User.org_name,User.email))
+        # mysql.connection.commit()
+        # cur.close()
+        # if cur.rowcount == 1:
+        #     return 1
         else:
             return 0
     except Exception as e:
@@ -119,16 +135,16 @@ def initializeCards(User):
         return 0
 
 def userExist(User):
-    cur = mysql.connection.cursor()
+    # cur = mysql.connection.cursor()
     try:
-        cur.execute("SELECT * FROM users WHERE email = %s", (User.email,))
-        result1 = cur.fetchone()
-        cur.close()
-        if result1:
-            if check_password_hash(result1[3], User.password):
+        # cur.execute("SELECT * FROM users WHERE email = %s", (User.email,))
+        # result1 = cur.fetchone()
+        user = Users.query.filter_by(email=User.email).first()
+        if user:
+            if check_password_hash(user.password, User.password):
                 obj = {
                     'exist':1,
-                    'id': result1[0]
+                    'id': user.user_id
                 }
                 return obj
             else:
@@ -137,7 +153,7 @@ def userExist(User):
             return {'exist':0}   
     except Exception as e:
         print(f"Error: {e}")
-        return 3
+        return {'exist': -1}
     
 
 
@@ -189,6 +205,7 @@ def signup_page():
             if x:
                 y = createUser(user)
                 z = initializeCards(user)
+                print(f"created user: {y}, initialized cards: {z}")
                 if y and z:
                     flash("Account created!", category='success')                    
                     return redirect(url_for('auth.login_page'))

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, jsonify, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from .model import mysql
+from .model import Users, Cards, Orders, db
 from .auth import login_required, session, User, contains_num, checkPassword, checkEmail
 from datetime import date, datetime
 
@@ -8,18 +8,19 @@ account=Blueprint('account', __name__)
 m = ""
 
 def getOrderHistory(id):
-    cur = mysql.connection.cursor()
+    # cur = mysql.connection.cursor()
     l=[]
     try:
-        cur.execute("SELECT * FROM orders WHERE user_id = %s", (id,))
-        result = cur.fetchall()
-        cur.close()
-        for row in result:
+        # cur.execute("SELECT * FROM orders WHERE user_id = %s", (id,))
+        # result = cur.fetchall()
+        # cur.close()
+        orders = Orders.query.filter_by(user_id=id)
+        for row in orders:
             order = {
-                'date':row[3],
-                'LTcard': row[4],
-                'Dcard': row[5],
-                'total': row[2]
+                'date':row.order_date,
+                'LTcard': row.LT_card,
+                'Dcard': row.D_card,
+                'total': row.amount
             }
             l.append(order)
         return l
@@ -30,36 +31,43 @@ def getOrderHistory(id):
     
 
 def getUser(email):
-    cur = mysql.connection.cursor()
+    # cur = mysql.connection.cursor()
     try:
-        cur.execute("SELECT * FROM cards WHERE email = %s",(email,))
-        result = cur.fetchone()
-        user = User(email,"",result[2],result[3])
+        # cur.execute("SELECT * FROM cards WHERE email = %s",(email,))
+        # result = cur.fetchone()
+        row = Cards.query.filter_by(email=email).first()
+        user = User(email,"",row.link_tree_card,row.direct_card)
         user.user_id = session["id"]
-        cur.close()
+        # cur.close()
         return user
     except Exception as e:
         print(f"Error: ${e}")
 
 def changePassword(email, password):
     try:
-        cur = mysql.connection.cursor()
-        cur.execute("UPDATE users SET passwrd = %s WHERE email = %s", (generate_password_hash(password), email))
-        result = cur.fetchone()
-        mysql.connection.commit()
-        cur.close()
-        if result.row_count == 1:
+        # cur = mysql.connection.cursor()
+        # cur.execute("UPDATE users SET passwrd = %s WHERE email = %s", (generate_password_hash(password), email))
+        # result = cur.fetchone()
+        # mysql.connection.commit()
+        # cur.close()
+        user = Users.query.filter_by(email=email).first()
+        if user:
+            user.password = password
+            db.session.commit()
+            print('PASSWORD UPDATED')
             return 1
+        print('USER NOT FOUND')
         return 0
     except Exception as e:
         print(f"Error: ${e}")
 
 def verifyPassword(email, password):
-    cur = mysql.connection.cursor()
+    # cur = mysql.connection.cursor()
     try:
-        cur.execute("SELECT passwrd FROM users WHERE email = %s",(email,))
-        result = cur.fetchone()
-        if check_password_hash(result[0], password):
+        # cur.execute("SELECT passwrd FROM users WHERE email = %s",(email,))
+        # result = cur.fetchone()
+        user = Users.query.filter_by(email=email)
+        if check_password_hash(user.password, password):
             return 1
         else:
             return 0
@@ -69,10 +77,14 @@ def verifyPassword(email, password):
     
 def changeEmail(id,new_email):
     try:
-        cur = mysql.connection.cursor()
-        cur.execute("UPDATE users SET email = %s WHERE user_id = %s", (new_email,id))
-        mysql.connection.commit()
-        cur.close()
+        # cur = mysql.connection.cursor()
+        # cur.execute("UPDATE users SET email = %s WHERE user_id = %s", (new_email,id))
+        # mysql.connection.commit()
+        # cur.close()
+        user = Users.query.filter_by(user_id=id)
+        if user:
+            user.email = new_email
+            db.session.commit()
     except Exception as e:
         print(f"Error: ${e}")
         

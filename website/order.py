@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, jsonify,redirect, url_for, request, flash
-from .model import mysql
+from .model import Orders, Users, Cards, db
 from .auth import login_required, session
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
@@ -40,12 +40,24 @@ def submit_order():
     link_list = data['link-tree-url']
 
     #Update the database
-    cur = mysql.connection.cursor()
+    # cur = mysql.connection.cursor()
     try:
         date = datetime.today().strftime('%Y-%m-%d')
-        cur.execute("INSERT INTO orders (user_id,amount,order_date,LT_card,D_card) VALUES (%s,%s,%s,%s,%s)",(session["id"],calcPrice(DC_amount,LC_amount),date,LC_amount,DC_amount))
-        cur.commit()
-        cur.close()
+        # cur.execute("INSERT INTO orders (user_id,amount,order_date,LT_card,D_card) VALUES (%s,%s,%s,%s,%s)",(session["id"],calcPrice(DC_amount,LC_amount),date,LC_amount,DC_amount))
+        # cur.commit()
+        # cur.close()
+        order = Orders(user_id=session["id"],amount=calcPrice(DC_amount,LC_amount),order_date=date,LT_card=LC_amount,D_card=DC_amount)
+        db.session.add(order)
+        db.session.commit()
+
+        # update the cards
+        cards = Cards.query.filter_by(user_id=session["id"]).first()
+        if cards:
+            cards.link_tree_card  = cards.link_tree_card + LC_amount
+            cards.direct_card = cards.direct_card + DC_amount
+            if cards.first_order_date == None:
+                cards.first_order_date = datetime.today()
+        db.session.commit()
     except Exception as e:
         print(f"Reading order to database: {e}")
 

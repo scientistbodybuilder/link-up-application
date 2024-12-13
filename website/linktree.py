@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, redirect, url_for, request, jsonify
-from .model import mysql
 from .auth import login_required, session
 
 linktree=Blueprint('linktree', __name__)

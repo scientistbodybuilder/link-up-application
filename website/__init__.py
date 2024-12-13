@@ -1,14 +1,19 @@
 from flask import Flask
-from .model import init_db
+from .model import db
+from flask_sqlalchemy import SQLAlchemy
 import os
 
+
+# db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
-    
-    app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST')
-    app.config['MYSQL_USER'] = os.getenv('MYSQL_USER')
-    app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
-    app.config['MYSQL_DB'] = os.getenv('MYSQL_DB')
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db' #os.getenv('DATABASE_URL')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    # app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST')
+    # app.config['MYSQL_USER'] = os.getenv('MYSQL_USER')
+    # app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
+    # app.config['MYSQL_DB'] = os.getenv('MYSQL_DB')
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
     app.config['MAIL_SERVER'] = "smtp.gmail.com"
@@ -18,7 +23,8 @@ def create_app():
     app.config['MAIL_USE_TLS'] = False
     app.config['MAIL_USE_SSL'] = True
 
-    mysql = init_db(app)
+    db.init_app(app)
+    # mysql = init_db(app)
 
     from .views import views
     from .auth import auth

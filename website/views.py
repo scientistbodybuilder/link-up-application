@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, jsonify
-from .model import mysql
+from .model import Cards, db
+from sqlalchemy import desc
 from .auth import session
 from datetime import date, datetime
 from email.mime.multipart import MIMEMultipart
@@ -26,32 +27,46 @@ class CardButton():
         self.date = date
 
 def orderOrg(m):
-    cur = mysql.connection.cursor()
+    # cur = mysql.connection.cursor()
     l=[]
     try:
         if m=="card":
-            cur.execute("SELECT * FROM cards WHERE org_name IS NOT NULL AND first_order_date IS NOT NULL ORDER BY (direct_card + link_tree_card) DESC")
-            result = cur.fetchall()
-            for org in result:
-                if isinstance(org[5], (date, datetime)):
-                    date_str = org[5].strftime('%Y-%m-%d')
+            cards = Cards.query.filter(
+                Cards.org_name.isnot(None),
+                Cards.first_order_date.isnot(None)
+            ).order_by(
+                (Cards.direct_card + Cards.link_tree_card).desc()
+            ).all()
+            print(cards)
+
+    
+            # cur.execute("SELECT * FROM cards WHERE org_name IS NOT NULL AND first_order_date IS NOT NULL ORDER BY (direct_card + link_tree_card) DESC")
+            # result = cur.fetchall()
+            for org in cards:
+                if isinstance(org.first_order_date, (date, datetime)):
+                    date_str = org.first_order_date.strftime('%Y-%m-%d')
                 else:
-                    date_str = org[5]
-                card = CardButton(org[1], org[2] + org[3], date_str)
+                    date_str = org.first_order_date
+                card = CardButton(org.org_name, org.link_tree_card + org.direct_card, date_str)
                 l.append(card)
-            cur.close()
             return l
         else:
-            cur.execute("SELECT * FROM cards WHERE org_name IS NOT NULL AND first_order_date IS NOT NULL ORDER BY first_order_date DESC")
-            result = cur.fetchall()
-            for org in result:
-                if isinstance(org[5], (date, datetime)):
-                    date_str = org[5].strftime('%Y-%m-%d')
+            # cur.execute("SELECT * FROM cards WHERE org_name IS NOT NULL AND first_order_date IS NOT NULL ORDER BY first_order_date DESC")
+            # result = cur.fetchall()
+            cards = Cards.query.filter(
+                Cards.org_name.isnot(None),
+                Cards.first_order_date.isnot(None)
+            ).order_by(
+                (Cards.first_order_date).desc()
+            ).all()
+            print(cards)
+            for org in cards:
+                if isinstance(org.first_order_date, (date, datetime)):
+                    date_str = org.first_order_date.strftime('%Y-%m-%d')
                 else:
-                    date_str = org[5]
-                card = CardButton(org[1], org[2] + org[3], date_str)
+                    date_str = org.first_order_date
+                card = CardButton(org.org_name, org.link_tree_card + org.direct_card, date_str)
                 l.append(card)
-            cur.close()
             print(l)
             return l
     except Exception as e:
