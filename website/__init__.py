@@ -7,7 +7,7 @@ import os
 # db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db' #os.getenv('DATABASE_URL')
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('RENDER_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST')
@@ -16,12 +16,12 @@ def create_app():
     # app.config['MYSQL_DB'] = os.getenv('MYSQL_DB')
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
-    app.config['MAIL_SERVER'] = "smtp.gmail.com"
-    app.config['MAIL_PORT'] = 465
-    app.config['MAIL_USERNAME'] = "suspiciousemail54@gmail.com"
-    app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
-    app.config['MAIL_USE_TLS'] = False
-    app.config['MAIL_USE_SSL'] = True
+    # app.config['MAIL_SERVER'] = "smtp.gmail.com"
+    # app.config['MAIL_PORT'] = 465
+    # app.config['MAIL_USERNAME'] = "suspiciousemail54@gmail.com"
+    # app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+    # app.config['MAIL_USE_TLS'] = False
+    # app.config['MAIL_USE_SSL'] = True
 
     db.init_app(app)
     # mysql = init_db(app)
