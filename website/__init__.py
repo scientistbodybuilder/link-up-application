@@ -7,7 +7,7 @@ import os
 # db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://link_db_zqe3_user:NR6TGDCi5IUTa5TpaGCUBHK5jqZDPKCL@dpg-ctf6rf0gph6c73fkca80-a.ohio-postgres.render.com/link_db_zqe3')
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST')
