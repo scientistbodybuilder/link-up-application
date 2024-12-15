@@ -14,11 +14,11 @@ m = "card"
 
 #Email Configs
 load_dotenv()
-HOST = "smtp.gmail.com"
+HOST = "smtp.office365.com"
 PORT = 587
-FROM_EMAIL = "linkup.tech.canada@gmail.com"
+FROM_EMAIL = "linkup.canada@outlook.com"
 PASSWORD = os.getenv('LINKUP_EMAIL_PASSWORD')
-TO_EMAIL = "linkup.tech.canada@gmail.com"
+TO_EMAIL = "linkup.canada@outlook.com"
 
 class CardButton():
     def __init__(self,name,card_num,date):
@@ -131,6 +131,9 @@ def fetch_home():
         m = data['m']
         print(f"request to change card ordering: {m}")
         new_list = orderOrg(m)
+        print(new_list)
+        print("done list")
+        print(Cards.query.all())
         result = [{'name': card.name, 'card_num': card.card_num, 'date':card.date} for card in new_list]
         print("returning json list")
         return jsonify(result)

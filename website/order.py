@@ -10,11 +10,11 @@ from jinja2 import Template
 
 #Email Configs
 load_dotenv()
-HOST = "smtp.gmail.com"
+HOST = "smtp.office365.com"
 PORT = 587
-FROM_EMAIL = "linkup.tech.canada@gmail.com"
+FROM_EMAIL = "linkup.canada@outlook.com"
 PASSWORD = os.getenv('LINKUP_EMAIL_PASSWORD')
-TO_EMAIL = "linkup.tech.canada@gmail.com"
+TO_EMAIL = "linkup.canada@outlook.com"
 
 # price of the cards
 price_LT = int(os.getenv('LINKTREE_CARD_PRICE'))
@@ -23,7 +23,7 @@ price_D = int(os.getenv('DIRECT_CARD_PRICE'))
 order=Blueprint('order', __name__)
 
 def calcPrice(num_direct_card,num_linktree_card):
-    return num_direct_card*price_D + num_linktree_card*price_LT
+    return int(num_direct_card)*price_D + int(num_linktree_card)*price_LT
 
 @order.route('/order')
 @login_required
@@ -38,6 +38,11 @@ def submit_order():
     LC_amount = data['link-card-qty']
     DC_link = data['direct-card-url']
     link_list = data['link-tree-url']
+    
+    if LC_amount == '':
+        LC_amount = "0"
+    if DC_amount == '':
+        DC_amount = "0"
 
     #Update the database
     # cur = mysql.connection.cursor()
@@ -53,86 +58,86 @@ def submit_order():
         # update the cards
         cards = Cards.query.filter_by(user_id=session["id"]).first()
         if cards:
-            cards.link_tree_card  = cards.link_tree_card + LC_amount
-            cards.direct_card = cards.direct_card + DC_amount
+            cards.link_tree_card  = cards.link_tree_card + int(LC_amount)
+            cards.direct_card = cards.direct_card + int(DC_amount)
             if cards.first_order_date == None:
                 cards.first_order_date = datetime.today()
         db.session.commit()
-    except Exception as e:
-        print(f"Reading order to database: {e}")
+    # except Exception as e:
+    #     print(f"Reading order to database: {e}")
 
     #prepare an email
-    message = MIMEMultipart()
-    message["From"] = FROM_EMAIL
-    message["To"] = TO_EMAIL
-    message["Subject"] = f"Order from {session["user"]}"
+    # message = MIMEMultipart()
+    # message["From"] = FROM_EMAIL
+    # message["To"] = TO_EMAIL
+    # message["Subject"] = f"Order from {session["user"]}"
 
-    if LC_amount == 0:  # ordering only direct cards           
-        html_content = """
-        <html>
-        <body>
-            <p>Quantity of Linktreee cards: {{ l_amount }}</p>
-            <br>
-            <p>Quantity of Direct cards: {{ d_amount }}</p>
-            <br>
-            <p>Direct Card URL: {{ link }}</p>
-        </body>
-        </html>
-        """
-        template = Template(html_content)
-        html = template.render(d_amount = DC_amount, l_amount = LC_amount, link = DC_link )
+    # if LC_amount == 0:  # ordering only direct cards           
+    #     html_content = """
+    #     <html>
+    #     <body>
+    #         <p>Quantity of Linktreee cards: {{ l_amount }}</p>
+    #         <br>
+    #         <p>Quantity of Direct cards: {{ d_amount }}</p>
+    #         <br>
+    #         <p>Direct Card URL: {{ link }}</p>
+    #     </body>
+    #     </html>
+    #     """
+    #     template = Template(html_content)
+    #     html = template.render(d_amount = DC_amount, l_amount = LC_amount, link = DC_link )
         
-    elif DC_amount==0:  # ordering only link tree cards
-        html_content = """
-        <html>
-        <body>
-            <p>Quantity of Linktreee cards: {{ l_amount }}</p>
-            <br>
-            <p>Quantity of Direct cards: {{ d_amount }}</p>
-            <br>
-            <ul>
-                {% for url in url_list%}
-                        <li>{{ url }}</li>
-                    {% endfor %}                  
-            </ul>
-        </body>
-        </html>
-        """
-        template = Template(html_content)
-        html = template.render(url_list = link_list, d_amount = DC_amount, l_amount = LC_amount)
-    else:  # ordering direct and link tree cards
-        html_content = """
-        <html>
-        <body>
-            <p>Quantity of Linktreee cards: {{ l_amount }}</p>
-            <br>
-            <p>Quantity of Direct cards: {{ d_amount }}</p>
-            <br>
-            <p>Direct Card URL: {{ link }} </p>                      
-            <br>
-            <ul>
-                {% for url in url_list %}
-                        <li>{{ url }}</li>
-                    {% endfor %}                  
-            </ul>
-        </body>
-        </html>
-        """
-        template = Template(html_content)
-        html = template.render(url_list = link_list, d_amount = DC_amount, l_amount = LC_amount, link=DC_link)                    
-    # send the email
-    try:
-        server = smtplib.SMTP(HOST,PORT)
-        message.attach(MIMEText(html, 'html'))
-        server.starttls()
-        server.login(FROM_EMAIL,PASSWORD)
-        server.sendmail(FROM_EMAIL,TO_EMAIL,message.as_string())
-        server.quit()
+    # elif DC_amount==0:  # ordering only link tree cards
+    #     html_content = """
+    #     <html>
+    #     <body>
+    #         <p>Quantity of Linktreee cards: {{ l_amount }}</p>
+    #         <br>
+    #         <p>Quantity of Direct cards: {{ d_amount }}</p>
+    #         <br>
+    #         <ul>
+    #             {% for url in url_list%}
+    #                     <li>{{ url }}</li>
+    #                 {% endfor %}                  
+    #         </ul>
+    #     </body>
+    #     </html>
+    #     """
+    #     template = Template(html_content)
+    #     html = template.render(url_list = link_list, d_amount = DC_amount, l_amount = LC_amount)
+    # else:  # ordering direct and link tree cards
+    #     html_content = """
+    #     <html>
+    #     <body>
+    #         <p>Quantity of Linktreee cards: {{ l_amount }}</p>
+    #         <br>
+    #         <p>Quantity of Direct cards: {{ d_amount }}</p>
+    #         <br>
+    #         <p>Direct Card URL: {{ link }} </p>                      
+    #         <br>
+    #         <ul>
+    #             {% for url in url_list %}
+    #                     <li>{{ url }}</li>
+    #                 {% endfor %}                  
+    #         </ul>
+    #     </body>
+    #     </html>
+    #     """
+    #     template = Template(html_content)
+    #     html = template.render(url_list = link_list, d_amount = DC_amount, l_amount = LC_amount, link=DC_link)                    
+    # # send the email
+    # try:
+    #     server = smtplib.SMTP(HOST,PORT)
+    #     message.attach(MIMEText(html, 'html'))
+    #     server.starttls()
+    #     server.login(FROM_EMAIL,PASSWORD)
+    #     server.sendmail(FROM_EMAIL,TO_EMAIL,message.as_string())
+    #     server.quit()
 
         # signal to user that order completed successfully
         return jsonify({'status': 'success'})
     except Exception as e:
-        print(f"Sending Order Email:{e}")
+        print(f"Writing order to database:{e}")
         # signal that the order did not go through successfully
         return jsonify({'status': 'error'})
     

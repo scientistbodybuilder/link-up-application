@@ -20,15 +20,34 @@ h1 {
 
 /* CONTACT AREA */
 
+.contact-actions {
+    
+}
+.contact-message {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 90px;
+    margin-bottom: 20px;
+}
+
+.contact-message p {
+    font-size: 1.3rem;
+}
+
+.contact-message span {
+    font-size: 1.5rem;
+}
+
 form {
-    border: solid 1px #ccc;
+    /* border: solid 1px #ccc; */
     border-radius: 10px;
     padding: 10px 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-bottom: 20px;
-    margin-top: 50px;
+    margin-top: 100px;
 }
 
 .contact-actions div {
@@ -39,7 +58,7 @@ form {
 }
 
 .contact-phone p{
-    font-size: 18px;
+    font-size: 1.5rem;
 }
 
 
