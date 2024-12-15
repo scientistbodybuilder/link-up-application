@@ -14,11 +14,11 @@ m = "card"
 
 #Email Configs
 load_dotenv()
-HOST = "smtp.office365.com"
-PORT = 587
-FROM_EMAIL = "linkup.canada@outlook.com"
-PASSWORD = os.getenv('LINKUP_EMAIL_PASSWORD')
-TO_EMAIL = "linkup.canada@outlook.com"
+# HOST = "smtp.office365.com"
+# PORT = 587
+# FROM_EMAIL = "linkup.canada@outlook.com"
+# PASSWORD = os.getenv('LINKUP_EMAIL_PASSWORD')
+# TO_EMAIL = "linkup.canada@outlook.com"
 
 class CardButton():
     def __init__(self,name,card_num,date):
@@ -88,39 +88,39 @@ def contact_page():
         return render_template('contact.html', prompt2 = "Sign in")
     return render_template('contact.html', prompt2 = "Sign out")
 
-@views.route("/contact-message", methods=['POST'])
-def send_message():
-    data = request.get_json()
-    msg = data['msg']
+# @views.route("/contact-message", methods=['POST'])
+# def send_message():
+#     data = request.get_json()
+#     msg = data['msg']
 
-    message = MIMEMultipart()
-    message["From"] = FROM_EMAIL
-    message["To"] = TO_EMAIL
-    message["Subject"] = f"Inquiry from {session["user"]}"
+#     message = MIMEMultipart()
+#     message["From"] = FROM_EMAIL
+#     message["To"] = TO_EMAIL
+#     message["Subject"] = f"Inquiry from {session["user"]}"
 
-    html_content = """
-        <html>
-        <body>
-            <p>{{ msg }}</p>
-        </body>
-        </html>
-        """
-    template = Template(html_content)
-    html = template.render(msg=msg)
-    try:
-        server = smtplib.SMTP(HOST,PORT)
-        message.attach(MIMEText(html, 'html'))
-        server.starttls()
-        server.login(FROM_EMAIL,PASSWORD)
-        server.sendmail(FROM_EMAIL,TO_EMAIL,message.as_string())
-        server.quit()
+#     html_content = """
+#         <html>
+#         <body>
+#             <p>{{ msg }}</p>
+#         </body>
+#         </html>
+#         """
+#     template = Template(html_content)
+#     html = template.render(msg=msg)
+#     try:
+#         server = smtplib.SMTP(HOST,PORT)
+#         message.attach(MIMEText(html, 'html'))
+#         server.starttls()
+#         server.login(FROM_EMAIL,PASSWORD)
+#         server.sendmail(FROM_EMAIL,TO_EMAIL,message.as_string())
+#         server.quit()
 
-        # signal to user that order completed successfully
-        return jsonify({'status': 'success'})
-    except Exception as e:
-        print(f"Sending Order Email:{e}")
-        # signal that the order did not go through successfully
-        return jsonify({'status': 'error'})
+#         # signal to user that order completed successfully
+#         return jsonify({'status': 'success'})
+#     except Exception as e:
+#         print(f"Sending Order Email:{e}")
+#         # signal that the order did not go through successfully
+#         return jsonify({'status': 'error'})
 
 @views.route("/fetch_order_change", methods=["POST"])
 # @login_required

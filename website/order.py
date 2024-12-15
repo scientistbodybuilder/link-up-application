@@ -36,8 +36,8 @@ def submit_order():
     data = request.get_json()
     DC_amount = data['direct-card-qty']
     LC_amount = data['link-card-qty']
-    DC_link = data['direct-card-url']
-    link_list = data['link-tree-url']
+    # DC_link = data['direct-card-url']
+    # link_list = data['link-tree-url']
     
     if LC_amount == '':
         LC_amount = "0"
