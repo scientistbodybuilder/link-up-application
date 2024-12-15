@@ -103,6 +103,7 @@ def createUser(User):
         # else:
         #     return 0
         print("user created")
+        return 1
     except Exception as e:
             print(f"Error: {e}")
             return 0
