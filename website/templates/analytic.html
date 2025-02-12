@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/base.css">
-    <link  rel="stylesheet" href="../static/css/order.css">
+    <link  rel="stylesheet" href="../static/css/analytic.css">
     <script defer src="https://kit.fontawesome.com/d218daeade.js" crossorigin="anonymous"></script>
-    <script src="../static/javascript/order.js"></script>
+    <script src="../static/javascript/analytic.js"></script>
     <title>LinkUp</title>
 </head>
 <body>
@@ -38,33 +38,23 @@
         </div>
     </header>
     
-    <h3 class="submission-result"></h3>
-    <form id="form">
-        <div>
-            <label for="link-cards-qty">Quantity of Link Tree Cards</label><br>
-            <input type="number" min="0" name="link-cards-qty" id="link-cards-qty">
-        </div>
-        <div>
-            <label for="direct-cards-qty">Quantity of Direct Cards</label><br>
-            <input type="number" min="0" name="direct-cards-qty" id="direct-cards-qty">
-        </div>
-        <div>
-            <label for="link-amount">How many links do you want (If link tree)</label><br>
-            <input type="number" name="link-amount" min="0" id="link-amount" onchange="linkTree(event)">
-        </div>
-        <!-- Use javascript to generate n text inputs for urls, when link-amount is > 0 -->
-         <div id="linktree-url">
-         </div>
-        
-        <div>
-            <label for="direct-cards-url">Direct Card URL</label><br>
-            <textarea name="direct-cards-url" id="direct-cards-url" placeholder="Enter Direct URL"></textarea>
-        </div>
-        <input type="submit">
-    </form>
-    <div class = "alert">
+    <section>
+        <h2>Analytics</h2>
+        <!-- <iframe src="/dashboard/" width="100%" height="600px" style="border: none;"></iframe> -->
+         <!-- Add buttons or a form to select info to customize the report.
+          Do you want to see all locations or only a specific one, 
+          timeframe: 3 months, 1 year, all time
+          line or bar chart?-->
 
-    </div>
+         <button class="analytic-btn"> Download Report</button>
+         {% with messages = get_flashed_messages() %}
+         {% if messages %}
+            <div class="report-flash">
+                {{ message}}
+            </div>
+        {% endif %}
+        {% endwith %}
+    </section>
   
     <footer>
             <div class="footer-logo">

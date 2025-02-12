@@ -31,11 +31,13 @@ def create_app():
     from .order import order
     from .linktree import linktree
     from .account import account
+    from .analytic import analytic
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(order, url_prefix='/')
     app.register_blueprint(linktree, url_prefix='/')
     app.register_blueprint(account, url_prefix='/')
+    app.register_blueprint(analytic, url_prefix='/')
 
     return app

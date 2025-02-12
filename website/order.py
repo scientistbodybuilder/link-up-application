@@ -17,8 +17,8 @@ PASSWORD = os.getenv('LINKUP_EMAIL_PASSWORD')
 TO_EMAIL = "linkup.canada@outlook.com"
 
 # price of the cards
-price_LT = int(os.getenv('LINKTREE_CARD_PRICE'))
-price_D = int(os.getenv('DIRECT_CARD_PRICE'))
+price_LT = float(os.getenv('LINKTREE_CARD_PRICE'))
+price_D = float(os.getenv('DIRECT_CARD_PRICE'))
 
 order=Blueprint('order', __name__)
 
