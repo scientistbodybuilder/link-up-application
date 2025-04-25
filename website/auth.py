@@ -23,7 +23,7 @@ class User:
         self.LT_card = linktree_card
         self.D_card = direct_card
         self.user_id=""
-        self.org_name = ""
+        self.organization = ""
 
 
 def contains_num(s):
@@ -73,12 +73,12 @@ def uniqueEmail(email):
         print(f"Error: {e}")
         return False
     
-def uniqueOrganization(org_name):
+def uniqueOrganization(organization):
     # cur = mysql.connection.cursor()
     try:
-        # cur.execute("SELECT * FROM users WHERE org_name = %s", (org_name))
+        # cur.execute("SELECT * FROM users WHERE organization = %s", (organization))
         # org = cur.fetchone()
-        org = Users.query.filter_by(org_name=org_name).first()
+        org = Users.query.filter_by(organization=organization).first()
         if org:
             print("Existing organization")
             return False
@@ -92,10 +92,10 @@ def createUser(User):
     # cur = mysql.connection.cursor()
     hashed_password = generate_password_hash(User.password, method='pbkdf2:sha256')
     try:
-        new_user = Users(org_name=User.org_name, email=User.email, password=hashed_password)
+        new_user = Users(organization=User.organization, email=User.email, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        # cur.execute("INSERT INTO users (org_name,email,passwrd) VALUES (%s,%s,%s)", (User.org_name,User.email,hashed_password))
+        # cur.execute("INSERT INTO users (organization,email,passwrd) VALUES (%s,%s,%s)", (User.organization,User.email,hashed_password))
         # mysql.connection.commit()
         # cur.close()
         # if cur.rowcount == 1:
@@ -118,13 +118,13 @@ def initializeCards(User):
             user_id = user.user_id
 
             #insert
-            cards = Cards(user_id=user_id, org_name=User.org_name, email = User.email)
+            cards = Cards(user_id=user_id, organization=User.organization, email = User.email)
             db.session.add(cards)
             db.session.commit()
             return 1
 
 
-        # cur.execute("INSERT INTO cards (user_id, org_name, email) VALUES(%s,%s,%s)",(user_id,User.org_name,User.email))
+        # cur.execute("INSERT INTO cards (user_id, organization, email) VALUES(%s,%s,%s)",(user_id,User.organization,User.email))
         # mysql.connection.commit()
         # cur.close()
         # if cur.rowcount == 1:
@@ -186,7 +186,7 @@ def signup_page():
         email = request.form['email']
         password = request.form['password']
         confirm_password = request.form["confirm password"]
-        org_name = request.form["org_name"]
+        organization = request.form["organization"]
         
         check = checkPassword(password, confirm_password)
         if check == 2:
@@ -197,11 +197,11 @@ def signup_page():
             flash('Password must contain a number', category='error')
         elif not("@" in email or "." in email):
             flash('Email must contain an @ symbol', category='error')
-        elif (org_name != "") and (not(uniqueOrganization(org_name))):
+        elif (organization != "") and (not(uniqueOrganization(organization))):
             flash('The organization name already exists', category='error')
         else:
             user = User(email,password,0,0)
-            user.org_name = org_name
+            user.organization = organization
             x = uniqueEmail(user.email)
             if x:
                 y = createUser(user)

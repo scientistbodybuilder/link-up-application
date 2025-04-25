@@ -7,13 +7,11 @@ import os
 # db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+    #app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres.aiyrkhmijnewwjzhbgot:kGKnKQkfFsFx2wvH@aws-0-ca-central-1.pooler.supabase.com:6543/postgres"
+
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    # app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST')
-    # app.config['MYSQL_USER'] = os.getenv('MYSQL_USER')
-    # app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
-    # app.config['MYSQL_DB'] = os.getenv('MYSQL_DB')
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
     # app.config['MAIL_SERVER'] = "smtp.gmail.com"

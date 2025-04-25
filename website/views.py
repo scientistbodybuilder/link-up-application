@@ -32,7 +32,7 @@ def orderOrg(m):
     try:
         if m=="card":
             cards = Cards.query.filter(
-                Cards.org_name.isnot(None),
+                Cards.organization.isnot(None),
                 Cards.first_order_date.isnot(None)
             ).order_by(
                 (Cards.direct_card + Cards.link_tree_card).desc()
@@ -40,21 +40,21 @@ def orderOrg(m):
             print(cards)
 
     
-            # cur.execute("SELECT * FROM cards WHERE org_name IS NOT NULL AND first_order_date IS NOT NULL ORDER BY (direct_card + link_tree_card) DESC")
+            # cur.execute("SELECT * FROM cards WHERE organization IS NOT NULL AND first_order_date IS NOT NULL ORDER BY (direct_card + link_tree_card) DESC")
             # result = cur.fetchall()
             for org in cards:
                 if isinstance(org.first_order_date, (date, datetime)):
                     date_str = org.first_order_date.strftime('%Y-%m-%d')
                 else:
                     date_str = org.first_order_date
-                card = CardButton(org.org_name, org.link_tree_card + org.direct_card, date_str)
+                card = CardButton(org.organization, org.link_tree_card + org.direct_card, date_str)
                 l.append(card)
             return l
         else:
-            # cur.execute("SELECT * FROM cards WHERE org_name IS NOT NULL AND first_order_date IS NOT NULL ORDER BY first_order_date DESC")
+            # cur.execute("SELECT * FROM cards WHERE organization IS NOT NULL AND first_order_date IS NOT NULL ORDER BY first_order_date DESC")
             # result = cur.fetchall()
             cards = Cards.query.filter(
-                Cards.org_name.isnot(None),
+                Cards.organization.isnot(None),
                 Cards.first_order_date.isnot(None)
             ).order_by(
                 (Cards.first_order_date).desc()
@@ -65,7 +65,7 @@ def orderOrg(m):
                     date_str = org.first_order_date.strftime('%Y-%m-%d')
                 else:
                     date_str = org.first_order_date
-                card = CardButton(org.org_name, org.link_tree_card + org.direct_card, date_str)
+                card = CardButton(org.organization, org.link_tree_card + org.direct_card, date_str)
                 l.append(card)
             print(l)
             return l

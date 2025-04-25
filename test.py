@@ -1,92 +1,140 @@
 import pandas as pd
-import numpy as np
+import seaborn as sns
+from datetime import datetime
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-from datetime import datetime, timedelta
 from matplotlib.backends.backend_pdf import PdfPages
-import os
-from pathlib import Path
-plt.style.use("seaborn-v0_8-whitegrid")
+from matplotlib.ticker import MaxNLocator
+sns.set_theme()
+# Sample Data (Dates and Values)
+df = pd.read_excel(r'C:\Users\ousma\Downloads\testdata.xlsx')
 
-def maxDateRange(df_list):
-    length = 0
-    d = None
-    for data in df_list:
-        if len(data['df']['Date'].to_list()) > length:
-            length = len(data['df']['Date'].to_list())
-            d = data['df']['Date'].to_list()
-
+# Convert 'date' to datetime (if not already)
+def acronym(exception):
+    if exception == 'Duplicate Expense Same Employee':
+        return 'DESE'
+    elif exception == 'Duplicate Expense Different Employees':
+        return 'DEDE'
+    elif exception == 'Duplicate Expense Mileage Submission':
+        return 'DEMS'
+    elif exception == 'Expense Excessive Out of Pocket':
+        return 'EEOP'
+    elif exception == 'Expense Excessive Personal':
+        return 'EEP'
+    elif exception == 'Expense Out of Pocket Unusual':
+        return 'EOPU'
+    elif exception == 'Expense Excessive Late Submission':
+        return 'EELS'
+    else:
+        return 'No Exception'
+    
+def get_date(date):
+    d = datetime.strptime(date,'%Y-%m-%d %I:%M')
     return d
 
-def reviewRange(df_list):
-    l = []
-    for data in df_list:
-        reviews = data['df']['Review Count'].to_list()
-        l = l + reviews
+def get_exceptions_per_day(date_list,df,exception):
+    temp = df[df['Exception']==exception]
+    count_list = []
+    for date in date_list:
+        t = temp[temp['Tran Date']==date]
+        count = t['Exception'].count()
+        count_list.append(count)
 
-    l =  list(set(l))
-    return [min(l), max(l)]
+    return count_list
 
-org_name = 'Pita Lite'
-download_dir = str(Path.home() / "Downloads")
-pdf_path = os.path.join(download_dir, f"{org_name} Review Analytics.pdf")
-df = pd.read_excel(r'C:\Users\ousma\Downloads\Projects\Python\link-up-application\data\linkup_data.xlsx',sheet_name=org_name)
 
-locations = list(set(df['Location'].to_list()))
-print(f'locations: {locations}')
-df_list = []
-for location in locations:
-    df_list.append({'df':df[df['Location']==location],'location':location})
+df['Exception Acronym'] = df.apply(lambda x: acronym(x['Exception']),axis=1)
+df['Tran Date'] = pd.to_datetime(df['Tran Date'], format='%Y-%m-%d', errors='coerce')
+df = df.dropna(subset=['Tran Date'])
 
-print(f'df list: {df_list}')
-date_axis = maxDateRange(df_list)
-date_axis = [datetime.strptime(x,'%m/%d/%Y') for x in date_axis]
+colors = ['#f7b7a3','#ea5f89','#9b3192','#57167e','#2b0b35','#6050dc','#fff1c9']
+dese_count = df[df['Exception Acronym']=='DESE'].count()[0]
+dede_count = df[df['Exception Acronym']=='DEDE'].count()[0]
+dems_count = df[df['Exception Acronym']=='DEMS'].count()[0]
+eeop_count = df[df['Exception Acronym']=='EEOP'].count()[0]
+eep_count = df[df['Exception Acronym']=='EEP'].count()[0]
+eels_count = df[df['Exception Acronym']=='EELS'].count()[0]
+eopu_count = df[df['Exception Acronym']=='EOPU'].count()[0]
+no_exception = df[df['Exception Acronym']=='No Exception'].count()[0]
 
-review_range = reviewRange(df_list)
+count_categories = [dese_count,dede_count,dems_count,eep_count,eopu_count,eeop_count,eels_count]
+labels = ['DESE','DEDE','DEMS','EEP','EOPU','EEOP','EELS']
 
-with PdfPages(pdf_path) as pdf:
-    # create individual figures
-    for location in locations:
-        fig, ax = plt.subplots()
-       
-        temp = df[df['Location']==location]
-        y_axis = temp['Review Count'].to_list()
-        y_axis = [int(x) for x in y_axis]
+path = r'C:\Users\ousma\Downloads\summary.pdf'
+with PdfPages(path) as pdf:
+    # plt.figure(figsize=(10,8))
+    # plot 1 bar chart with total count of exceptions type
+    print('PLOT 1')
+    #data prep
+    plot_labels = []
+    plot_categories = []
+    for l,c in zip(labels,count_categories):
+        if c>0:
+            plot_categories.append(c)
+            plot_labels.append(l)
+    plot_colors = colors[:len(plot_categories)]
 
-        # x_axis = temp['Date'].to_list()
-        # x_axis = [datetime.strptime(x,'%m/%d/%Y') for x in x_axis]
-
-        ax.plot(date_axis,y_axis,label=location)
-        ax.set_ylim(review_range)
-        ax.set_title(f"{org_name} - {location} Review Growth")
-        ax.set_ylabel('Review Count')
-        ax.set_xlabel('Date')
-        ax.xaxis.set_major_formatter(mdates.DateFormatter('%b, %d, %Y'))
-        fig.autofmt_xdate()
-        fig.tight_layout()
-
-        pdf.savefig()
-        
-    #Create the multi plot figure
-    # need to get the longest date range
-    print(date_axis)
+    #plot
     fig1, ax1 = plt.subplots()
-    for data in df_list:
-        ax1.plot(date_axis,data['df']['Review Count'], label=data['location'])
+    ax1.bar(plot_labels,height=plot_categories,color=plot_colors,tick_label=plot_labels)
+    ax1.set_title("Total Exception Occurances in Feb 2025")
+    ax1.set_ylabel('Exception Count')
+    ax1.set_xlabel('Exception Types')
 
-    ax1.set_title(f"{org_name} - {location} Review Growth")
-    ax1.set_ylabel('Review Count')
-    ax1.set_xlabel('Date')
-    ax1.xaxis.set_major_formatter(mdates.DateFormatter('%b, %d, %Y'))
-    fig1.autofmt_xdate()
-    # fig.tight_layout()
+    # fig1.tight_layout()
+    pdf.savefig()
 
-    # Adjust layout
-    plt.legend()
-    plt.tight_layout()
+    # plot 2 pie chart with total percentages of exception type 
+    print('PLOT 2')
+    pie_categories = plot_categories + [no_exception]
+    pie_labels = plot_labels + ['No Exception']
+    pie_colors = colors + ['#2b0b28']
+    pie_percentages = [100.*x/sum(pie_categories) for x in pie_categories]
+    #update labels with percentages
+    pie_labels = ['{0} - {1:1.2f} %'.format(i,j) for i,j in zip(pie_labels,pie_percentages)]
+    
+    #plot
+    fig2, ax2 = plt.subplots()
+    sections = ax2.pie(pie_categories,colors=pie_colors,radius=1)
+    ax2.set_title('Total Exception Occurances in Feb 2025 (Percentage)')
+    fig2.legend(sections,labels=pie_labels, loc='upper left',fontsize=7,bbox_to_anchor=(0,0.9))
+    fig2.tight_layout()
+    pdf.savefig()
+
+    #plot 3 a time series chart over the course of the month's transaction dates
+    print('PLOT 3')
+    #data work - for each exception, create a list of it's amount of occurances per each day of the time series
+    dates = sorted(list(set(df['Tran Date'].to_list())))
+
+    dese_ts = get_exceptions_per_day(dates,df,'Duplicate Expense Same Employee')
+    dede_ts = get_exceptions_per_day(dates,df,'Duplicate Expense Different Employees')
+    dems_ts = get_exceptions_per_day(dates,df,'Duplicate Expense Mileage Submission')
+    eeop_ts = get_exceptions_per_day(dates,df,'Expense Excessive Out of Pocket')
+    eep_ts = get_exceptions_per_day(dates,df,'Expense Excessive Personal')
+    eels_ts = get_exceptions_per_day(dates,df,'Expense Excessive Late Submission')
+    eopu_ts = get_exceptions_per_day(dates,df,'Expense Out of Pocket Unusual')
+
+    print(f'We have {len(dates)}')
+    print(f'dese ts: {dese_ts}')
+    print(f'dates: {dates}')
+
+    #plot
+    fig3, ax3 = plt.subplots()
+    ax3.set_title('Time Series of Exception Occurances')
+    ax3.set_ylabel('Exception Count')
+    ax3.set_xlabel('Days')
+    ax3.plot(dates,dese_ts,label='DESE',color='#57167e')
+    ax3.plot(dates,dede_ts,label='DEDE',color='#9b3192')    
+    ax3.plot(dates,eels_ts,label='EELS',color='#57167e')
+
+
+    ax3.xaxis.set_major_formatter(mdates.DateFormatter('%b, %d, %Y'))
+    ax3.yaxis.set_major_locator(MaxNLocator(integer=True))
+    fig3.autofmt_xdate()
+    # fig3.tight_layout()
+    fig3.legend(loc='upper right',fontsize=6)
 
     pdf.savefig()
 
-        
 
-    
+    #plot 4. Another pie chart of which exceptions are taking up the most expense
